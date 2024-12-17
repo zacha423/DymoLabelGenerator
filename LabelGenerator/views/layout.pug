@@ -3,23 +3,12 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous")
     script(src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js")
     link(rel='stylesheet', href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css")
     script(src="javascripts/CheckEnv.js")
     script(src="javascripts/dymo.connect.framework.js")
   body
     block content
-    div.card
-      div.card-header
-        h3.card-title Default Card Example
-        div.card-tools
-          span.badge.badge-primary Label 
-      div.card-body The body of the card
-    .header 
-      #sampleDescription 
-        span This sample shows how check that the browser is supported and Dymo Label Framework is installed.\
-    .content
-      button#checkButton Check
-      #output
     
     

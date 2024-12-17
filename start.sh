@@ -1,0 +1,1 @@
+DEBUG=labelgenerator:* npm start

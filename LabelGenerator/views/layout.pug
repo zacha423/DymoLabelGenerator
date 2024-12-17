@@ -3,5 +3,14 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    scrp(src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js")
+    link(rel='stylesheet', href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css")
+
   body
     block content
+    div.card
+      div.card-header
+        h3.card-title Default Card Example
+        div.card-tools
+          span.badge.badge-primary Label 
+      div.card-body The body of the card

@@ -10,15 +10,6 @@ block content
       .col#assetField 
         label(for="asset") Asset Tag
         input#asset(type="text",name="asset")
-      //-.col 
-        .row.printControls
-        .col
-          #printersDiv
-            label(for="printersSelect") Printer: 
-            select#printersSelect
-        .col
-          #printDiv
-            button#printButton Print
     #modelField 
       .row
         label(for="models") Defaults Models
@@ -28,16 +19,12 @@ block content
       .row
         label(for="model") Device Model
         input#model(type="select",name="model")
-      //- pre *******#{mod22els}
     .row#hardwareField 
       .row
         p Preeselect a default configuration
-        label(for="defaults") Standard Hardware Configurations
+        label(for="default_hardware") Standard Hardware Configurations
         select#default_hardware(name="defaults")
-          option
-          //- option(value="i5/8GB/256GB") i5 / 8GB / 256GB
-          //- option(value="i7/16GB/512GB") i7 / 16GB / 512GB
-          //- option(vallue="Ultra7/16GB/256GB") Ultra 7 / 16GB / 256GB
+          option Enter custom hardware or select a configuration
 
       .row
         p can this be a drop/down preselect with custom and free text option?
@@ -64,6 +51,9 @@ block content
         li
           label(for="dongle") Dongle / Hub / Dock
           input#dongle(type="checkbox" name="dongle")
+        li
+          label(for="nothing") No Accessories
+          input#nothing(type="checkbox" name='nothing')
         li
           label(for="custom") Additional Item(s)
           input#custom(type="text" name="custom")

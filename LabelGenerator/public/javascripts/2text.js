@@ -76,6 +76,7 @@ $(() => {
       updatePreview(label);
     });
 
+    
     $('#returnField').change(() => {
       console.log ("Changing returned items");
       str = "Retd w/: ";
@@ -92,6 +93,10 @@ $(() => {
         str += "Hub, ";
       }
 
+      if ($('#nothing').prop('checked')) {
+        str += "No Accessories";
+      }
+
       str += $('#custom').val();
 
       label.setObjectText('Accessories', str);
@@ -101,19 +106,45 @@ $(() => {
     $('#usbc').on('input', () => {
       if ($('#usbc').prop('checked')) {
         $('#barrel').prop('checked', false);
-      }
+        $('#nothing').prop('checked', false);
+      }     
     });
 
 
     $('#barrel').on('input', () => {
       if($('#barrel').prop('checked')) {
         $('#usbc').prop('checked', false);
+        $('#nothing').prop('checked', false);
       }
+
+      
     });
 
     $('#printButton').on('click', () => {
       printLabel (label);
     });
+
+    $('#nothing').on('input', () => {
+      console.log ($('#nothing').attr('checked'));
+      if ($('#nothing').prop('checked')) {
+        $('#usbc').prop('checked', false);
+        $('#barrel').prop('checked', false);
+        $('#dongle').prop('checked', false);
+        $('#custom').val('');
+      }
+    });
+
+    $('#dongle').on('input', () => {
+      if ($('#dongle').prop('checked')) {
+        console.log ($(self));
+        console.log('testttt');
+        $('#nothing').prop('checked', false);
+      }
+    });
+
+    $('#custom').on('input', () => {
+      $('#nothing').prop('checked', false);
+    })
 
     $.get('/data/models.csv', ((data) => {
       console.log(data);
@@ -150,11 +181,14 @@ $(() => {
     });
 
     $('#default_hardware').on('input', () => {
+      selectedOpt = $('#default_hardware').find(':selected');
 
-      $('#cpu').val($('#default_hardware').find(':selected').attr('cpu'));
-      $('#memory').val($('#default_hardware').find(':selected').attr('memory'));
-      $('#storage').val($('#default_hardware').find(':selected').attr('storage'));
-    })
+      $('#cpu').val(selectedOpt.attr('cpu'));
+      $('#memory').val(selectedOpt.attr('memory'));
+      $('#storage').val(selectedOpt.attr('storage'));
+    });
+
+    $('#returnField').trigger('change');
 
 
   }

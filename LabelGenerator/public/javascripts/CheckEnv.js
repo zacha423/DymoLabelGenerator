@@ -104,27 +104,27 @@
 
         // loads all supported printers into a combo box 
         function loadPrintersAsync() {
-            console.log ("shjits fucked yo");
-            _printers = [];
-            dymo.label.framework.getPrintersAsync().then(function (printers) {
-                if (printers.length == 0) {
-                    alert("No DYMO printers are installed. Install DYMO printers.");
-                    return;
-                }
-                _printers = printers;
-                printers.forEach(function (printer) {
-                    let printerName = printer["name"];
-                    let option = document.createElement("option");
-                    option.value = printerName;
-                    option.appendChild(document.createTextNode(printerName));
-                    printersSelect.appendChild(option);
-                });
-                populatePrinterDetail();
-            }).thenCatch(function (e) {
-                alert("Load Printers failed: " + e);;
-                return;
-            });
-        }
+          console.log ("shjits fucked yo");
+          _printers = [];
+          dymo.label.framework.getPrintersAsync().then(function (printers) {
+          if (printers.length == 0) {
+            alert("No DYMO printers are installed. Install DYMO printers.");
+            return;
+          }
+          _printers = printers;
+          printers.forEach(function (printer) {
+            let printerName = printer["name"];
+            let option = document.createElement("option");
+            option.value = printerName;
+            option.appendChild(document.createTextNode(printerName));
+            printersSelect.appendChild(option);
+          });
+          populatePrinterDetail();
+        }).thenCatch(function (e) {
+          alert("Load Printers failed: " + e);;
+          return;
+        });
+      }
 
         // returns current address on the label 
         function getAddress() {
@@ -144,137 +144,95 @@
 
         // loads label file thwn user selects it in file open dialog
         labelFile.onchange = function() {
-            label = dymo.label.framework.openLabelXml("");
-            var res=label.isValidLabel();
-            if (labelFile.files && labelFile.files[0] && typeof labelFile.files[0].getAsText == "function") {  // Firefox
-                // open file by providing xml label definition
-                // in this example the definition is read from a local file
-                // in real world example it can come from the server, e.g. using XMLHttpRequest()
-                label = dymo.label.framework.openLabelXml(labelFile.files[0].getAsText("utf-8"));
+          label = dymo.label.framework.openLabelXml("");
+          var res=label.isValidLabel();
+          if (labelFile.files && labelFile.files[0] && typeof labelFile.files[0].getAsText == "function") {  // Firefox
+            // open file by providing xml label definition
+            // in this example the definition is read from a local file
+            // in real world example it can come from the server, e.g. using XMLHttpRequest()
+            label = dymo.label.framework.openLabelXml(labelFile.files[0].getAsText("utf-8"));
+          }
+          else {
+            // try load by opening file directly
+            // do it only if we have a full path
+            var fileName = labelFile.value;
+            if ((fileName.indexOf('/') >= 0 || fileName.indexOf('\\') >= 0) &&(fileName.indexOf('fakepath') <0 )) {
+              label = dymo.label.framework.openLabelFile(fileName); 
+              if(label.isDCDLabel())
+                console.log("DYMO Connect label");
+              if(label.isDLSLabel())
+                console.log("DLS label");	
+              if(label.isValidLabel())
+                console.log("The file is a valid label");
+              else {
+                alert(" The file is not a valid label");
+                return;
+              }
             }
             else {
-                // try load by opening file directly
-                // do it only if we have a full path
-                var fileName = labelFile.value;
-                if ((fileName.indexOf('/') >= 0 || fileName.indexOf('\\') >= 0) &&(fileName.indexOf('fakepath') <0 )) {
-                  label = dymo.label.framework.openLabelFile(fileName); 
-                  if(label.isDCDLabel())
-                    console.log("DYMO Connect label");
-                  if(label.isDLSLabel())
-                    console.log("DLS label");	
-                  if(label.isValidLabel())
-                    console.log("The file is a valid label");
-                  else {
-                    alert(" The file is not a valid label");
-                    return;
-                  }
-			        	}
-                else {
-                  // the browser returned a file name only (without path). This heppens on Safari for example
-                  // in this case it is impossible to obtain file content using client-size only code,some server support is needed (see GMail IFrame file upload, ofr example)
-                  // so for this sample we will inform user and open a default address label
-                  alert('The browser does not return full file path information. The sample will use a default label file');
-                  var testAddressLabelXml = '<?xml version="1.0" encoding="utf-8"?>\
-    <DieCutLabel Version="8.0" Units="twips">\
-        <PaperOrientation>Landscape</PaperOrientation>\
-        <Id>Address</Id>\
-        <PaperName>30252 Address</PaperName>\
-        <DrawCommands>\
-            <RoundRectangle X="0" Y="0" Width="1581" Height="5040" Rx="270" Ry="270" />\
-        </DrawCommands>\
-        <ObjectInfo>\
-            <AddressObject>\
-                <Name>Address</Name>\
-                <ForeColor Alpha="255" Red="0" Green="0" Blue="0" />\
-                <BackColor Alpha="0" Red="255" Green="255" Blue="255" />\
-                <LinkedObjectName></LinkedObjectName>\
-                <Rotation>Rotation0</Rotation>\
-                <IsMirrored>False</IsMirrored>\
-                <IsVariable>True</IsVariable>\
-                <HorizontalAlignment>Left</HorizontalAlignment>\
-                <VerticalAlignment>Middle</VerticalAlignment>\
-                <TextFitMode>ShrinkToFit</TextFitMode>\
-                <UseFullFontHeight>True</UseFullFontHeight>\
-                <Verticalized>False</Verticalized>\
-                <StyledText>\
-                    <Element>\
-                        <String>DYMO\n3 Glenlake Parkway\nAtlanta, GA 30328</String>\
-                        <Attributes>\
-                            <Font Family="Arial" Size="12" Bold="False" Italic="False" Underline="False" Strikeout="False" />\
-                            <ForeColor Alpha="255" Red="0" Green="0" Blue="0" />\
-                        </Attributes>\
-                    </Element>\
-                </StyledText>\
-                <ShowBarcodeFor9DigitZipOnly>False</ShowBarcodeFor9DigitZipOnly>\
-                <BarcodePosition>AboveAddress</BarcodePosition>\
-                <LineFonts>\
-                    <Font Family="Arial" Size="12" Bold="False" Italic="False" Underline="False" Strikeout="False" />\
-                    <Font Family="Arial" Size="12" Bold="False" Italic="False" Underline="False" Strikeout="False" />\
-                    <Font Family="Arial" Size="12" Bold="False" Italic="False" Underline="False" Strikeout="False" />\
-                </LineFonts>\
-            </AddressObject>\
-            <Bounds X="332" Y="150" Width="4455" Height="1260" />\
-        </ObjectInfo>\
-    </DieCutLabel>';
-          label = dymo.label.framework.openLabelXml(testAddressLabelXml);
+              // the browser returned a file name only (without path). This heppens on Safari for example
+              // in this case it is impossible to obtain file content using client-size only code,some server support is needed (see GMail IFrame file upload, ofr example)
+              // so for this sample we will inform user and open a default address label
+              alert('The browser does not return full file path information. The sample will use a default label file');
+              //raw sample yoinked outside for hoisting to deal w/ 
+              label = dymo.label.framework.openLabelXml(testAddressLabelXml);
+            }    
+          }
 
-        }    
+          // check that label has an address object
+          if (label.getAddressObjectCount() == 0) {
+            alert("Selected label does not have an address object on it. Select another label");
+            return;
+          }
+
+          updatePreview();
+          addressTextArea.value = getAddress();
+          printButton.disabled = false;
+          addressTextArea.disabled = false;
+        };
+
+        // updates address on the label when user types in textarea field
+        addressTextArea.onkeyup = function() {
+        if (!label) {
+          alert('Load label before entering address data');
+          return;
+        }
+
+        setAddress(addressTextArea.value);
+        updatePreview();
       }
 
-      // check that label has an address object
-      if (label.getAddressObjectCount() == 0) {
-        alert("Selected label does not have an address object on it. Select another label");
-        return;
-      }
+      // prints the label
+      printButton.onclick = function() {
+      try {               
+        if (!label) {
+          alert("Load label before printing");
+          return;
+        }
 
-      updatePreview();
-      addressTextArea.value = getAddress();
-      printButton.disabled = false;
-      addressTextArea.disabled = false;
+        //alert(printersSelect.value);
+        label.print(printersSelect.value);
+        //label.print("unknown printer");
+      }
+      catch(e) {
+        alert(e.message || e);
+      }
+    }
+
+    printersSelect.onchange = populatePrinterDetail;
+
+    // load printers list on startup
+    loadPrintersAsync();
     };
 
-    // updates address on the label when user types in textarea field
-    addressTextArea.onkeyup = function() {
-    if (!label) {
-      alert('Load label before entering address data');
-      return;
-    }
-
-    setAddress(addressTextArea.value);
-    updatePreview();
-  }
-
-  // prints the label
-  printButton.onclick = function() {
-  try {               
-    if (!label) {
-      alert("Load label before printing");
-      return;
-    }
-
-    //alert(printersSelect.value);
-    label.print(printersSelect.value);
-    //label.print("unknown printer");
-  }
-  catch(e) {
-    alert(e.message || e);
-  }
-}
-
-printersSelect.onchange = populatePrinterDetail;
-
-// load printers list on startup
-loadPrintersAsync();
-};
-
     function initTests() {
-		if(dymo.label.framework.init) {
-			//dymo.label.framework.trace = true;
-			dymo.label.framework.init(onload);
-		} else {
-			onload();
-		}
-	}
+      if(dymo.label.framework.init) {
+        //dymo.label.framework.trace = true;
+        dymo.label.framework.init(onload);
+      } else {
+        onload();
+      }
+	  }
 
     // register onload event
     if (window.addEventListener)
@@ -285,3 +243,46 @@ loadPrintersAsync();
         window.onload = initTests;
 
 } ());
+
+var testAddressLabelXml = '<?xml version="1.0" encoding="utf-8"?>\
+<DieCutLabel Version="8.0" Units="twips">\
+    <PaperOrientation>Landscape</PaperOrientation>\
+    <Id>Address</Id>\
+    <PaperName>30252 Address</PaperName>\
+    <DrawCommands>\
+        <RoundRectangle X="0" Y="0" Width="1581" Height="5040" Rx="270" Ry="270" />\
+    </DrawCommands>\
+    <ObjectInfo>\
+        <AddressObject>\
+            <Name>Address</Name>\
+            <ForeColor Alpha="255" Red="0" Green="0" Blue="0" />\
+            <BackColor Alpha="0" Red="255" Green="255" Blue="255" />\
+            <LinkedObjectName></LinkedObjectName>\
+            <Rotation>Rotation0</Rotation>\
+            <IsMirrored>False</IsMirrored>\
+            <IsVariable>True</IsVariable>\
+            <HorizontalAlignment>Left</HorizontalAlignment>\
+            <VerticalAlignment>Middle</VerticalAlignment>\
+            <TextFitMode>ShrinkToFit</TextFitMode>\
+            <UseFullFontHeight>True</UseFullFontHeight>\
+            <Verticalized>False</Verticalized>\
+            <StyledText>\
+                <Element>\
+                    <String>DYMO\n3 Glenlake Parkway\nAtlanta, GA 30328</String>\
+                    <Attributes>\
+                        <Font Family="Arial" Size="12" Bold="False" Italic="False" Underline="False" Strikeout="False" />\
+                        <ForeColor Alpha="255" Red="0" Green="0" Blue="0" />\
+                    </Attributes>\
+                </Element>\
+            </StyledText>\
+            <ShowBarcodeFor9DigitZipOnly>False</ShowBarcodeFor9DigitZipOnly>\
+            <BarcodePosition>AboveAddress</BarcodePosition>\
+            <LineFonts>\
+                <Font Family="Arial" Size="12" Bold="False" Italic="False" Underline="False" Strikeout="False" />\
+                <Font Family="Arial" Size="12" Bold="False" Italic="False" Underline="False" Strikeout="False" />\
+                <Font Family="Arial" Size="12" Bold="False" Italic="False" Underline="False" Strikeout="False" />\
+            </LineFonts>\
+        </AddressObject>\
+        <Bounds X="332" Y="150" Width="4455" Height="1260" />\
+    </ObjectInfo>\
+</DieCutLabel>';

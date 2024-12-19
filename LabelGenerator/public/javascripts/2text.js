@@ -1,5 +1,29 @@
 //***************************************************************************** */
 $(() => {
+  function loadPrintersAsync () {
+    console.log ("Loading printers");
+
+    _printers = [];
+    dymo.label.framework.getPrintersAsync().then((printers) => {
+      if (printers.length == 0) {
+        alert("No DYMO printers are installed.");
+        return;
+      }
+
+      _printers = printers;
+      printers.forEach((printer) => {
+        let printerName = printer["name"];
+        let option = document.createElement ("option");
+        option.value = printerName;
+        option.append (document.createTextNode(printerName));
+        $("#printersSelect").append(option);
+      });
+    }).thenCatch ((e) => {
+      alert ("Load printers failed: " + e);
+      return;
+    });
+  }
+
   function onload() {
     const labelFile = $('#labelFile');
     const addressTextArea = $('#addressTextArea');
@@ -11,7 +35,7 @@ $(() => {
     addressTextArea.disabled = true;
 
 
-    let label = dymo.label.framework.openLabelFile("http://localhost:3000/labels/testlabel.dymo");
+    let label = dymo.label.framework.openLabelFile("http://localhost:3000/labels/bumpdown.dymo");
     const res = label.isValidLabel();
     console.log(res);
 
@@ -30,20 +54,19 @@ $(() => {
     console.log (label.getObjectText(names[0]));
     console.log (label.getObjectText(names[1]));
     console.log (label.getObjectText(names[2]));
-    // console.log (label.getLabelXml());
 
-    // labelFile.on("change", function () {
-    //   console.log ('test');
-      
-    //   // load file from 
+    names.forEach ((item) => {
+      console.log (label.getObjectText (item));
+    });
 
-    //   // let label = dymo.label.framework.openLabelXml("");
-      
+    loadPrintersAsync ();
+  
       
       
+      
 
 
-    // });
+  
 
 
 

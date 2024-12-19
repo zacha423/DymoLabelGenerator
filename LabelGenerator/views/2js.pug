@@ -5,7 +5,10 @@ block chead
 block content
   h1= title
   p Welcome to #{title}
-    .top
+    .values
+      #assetField 
+        label(for="asset") Asset Tag
+        input#asset(type="text",name="asset")
     .left
       #labelFileSelection
         label(for="labelFile") Select label file with address object: 

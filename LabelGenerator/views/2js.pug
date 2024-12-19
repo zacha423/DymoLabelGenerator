@@ -20,24 +20,24 @@ block content
           #printDiv
             button#printButton Print
     #modelField 
-      //-.row
+      .row
         label(for="models") Defaults Models
-        select(name="models")
-          option Custom
-          option Precision 3490
-          option Precision 3590
+        select#models(name="models")
+          option Select an option or enter a custom value
+
       .row
         label(for="model") Device Model
         input#model(type="select",name="model")
+      //- pre *******#{mod22els}
     .row#hardwareField 
-      //-.row
+      .row
         p Preeselect a default configuration
         label(for="defaults") Standard Hardware Configurations
-        select(name="defaults")
+        select#default_hardware(name="defaults")
           option
-          option(value="i5/8GB/256GB") i5 / 8GB / 256GB
-          option(value="i7/16GB/512GB") i7 / 16GB / 512GB
-          option(vallue="Ultra7/16GB/256GB") Ultra 7 / 16GB / 256GB
+          //- option(value="i5/8GB/256GB") i5 / 8GB / 256GB
+          //- option(value="i7/16GB/512GB") i7 / 16GB / 512GB
+          //- option(vallue="Ultra7/16GB/256GB") Ultra 7 / 16GB / 256GB
 
       .row
         p can this be a drop/down preselect with custom and free text option?

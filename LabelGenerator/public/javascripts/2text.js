@@ -36,6 +36,7 @@ $(() => {
     printButton.disabled = true;
     addressTextArea.disabled = true;
 
+    
 
     let label = dymo.label.framework.openLabelFile("http://localhost:3000/labels/bumpdown.dymo");
     const res = label.isValidLabel();
@@ -121,7 +122,14 @@ $(() => {
 
   }
 
-  onload();
+
+  // if(dymo.label.framework.init) {
+  //   dymo.label.framework.init(onload);
+  // }
+  // else {
+    onload();
+  // }
+  
 });
 
 function updatePreview (label) {
@@ -145,12 +153,12 @@ function _debug_labelNames (label) {
 function printLabel (label) {
   console.log ('printing!');
   try {
-    if (!llabel) {
+    if (!label) {
       alert ("Label not loaded.");
       return;
     }
 
-    label.print($('#printerSelect').val())
+    label.print($('#printersSelect').val())
   }
   catch (e) {
     alert(e.message || e);

@@ -8,6 +8,8 @@ router.get('/', function(req, res, next) {
 
 router.get('/test', function (req, res, next) {
   res.render ('2js', {title:'Bumpdown Label Template'});
+
+  
 });
 
 module.exports = router;

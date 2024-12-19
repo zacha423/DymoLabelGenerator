@@ -112,6 +112,10 @@ $(() => {
       }
     });
 
+    $('#printButton').on('click', () => {
+      printLabel (label);
+    });
+
 
 
 
@@ -138,24 +142,17 @@ function _debug_labelNames (label) {
   });
 }
 
+function printLabel (label) {
+  console.log ('printing!');
+  try {
+    if (!llabel) {
+      alert ("Label not loaded.");
+      return;
+    }
 
-
-
-/***
- * // prints the label
-      printButton.onclick = function() {
-        try {               
-          if (!label) {
-            alert("Load label before printing");
-            return;
-          }
-
-          //alert(printersSelect.value);
-          label.print(printersSelect.value);
-          //label.print("unknown printer");
-        }
-        catch(e) {
-          alert(e.message || e);
-        }
-      }
- */
+    label.print($('#printerSelect').val())
+  }
+  catch (e) {
+    alert(e.message || e);
+  }
+}

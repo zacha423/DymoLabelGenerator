@@ -5,12 +5,40 @@ block chead
 block content
   h1= title
   p Welcome to #{title}
-    .values
+    .values#labelFields
       #assetField 
         label(for="asset") Asset Tag
         input#asset(type="text",name="asset")
-    .left
-      #labelFileSelection
+      #modelField 
+        label(for="model") Device Model
+        input#model(type="select",name="model")
+        p data from TDX in CSV?
+      #hardwareField 
+        p can this be a drop/down preselect with custom and free text option?
+        #cpu 
+          label(for="cpu") Processor
+          input(type="text" name="cpu")
+        #memory   
+          label(for="memory") Memory
+          input(type="text" name="memory")
+        #storage
+          label(for="storage") Storage
+          input(type="text", name="storage")
+      #returnField
+        select(multiple, name="returns")
+          option(value="USB-C") USB-C Charger 
+          option(value="Barrel") Barrel Charger
+          option(value="Hub") Dongle/Hub
+        p checkbox select - USB C / barrel/ hub
+
+        input(type="text" list="acccesories")
+        datalist(id="acccesories")
+          option(value="USB-C") USB-C Charger 
+          option(value="Barrel") Barrel Charger
+          option(value="Hub") Dongle/Hub
+
+    //- .left
+       #labelFileSelection
         label(for="labelFile") Select label file with address object: 
         input#labelFile(type="file",name="labelFile")
       #addressDiv

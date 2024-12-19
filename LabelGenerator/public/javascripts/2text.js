@@ -1,4 +1,6 @@
 //***************************************************************************** */
+
+
 $(() => {
   function loadPrintersAsync () {
     console.log ("Loading printers");
@@ -53,14 +55,21 @@ $(() => {
 
     loadPrintersAsync ();
     updatePreview (label);
-  
-      
-      
-      
 
 
-  
 
+    // Add onchange for asset
+    $('#asset').change(() => {
+      console.log('Changing Asset Tag');
+      label.setObjectText('AssetTag', $('#asset').val());
+      updatePreview(label);
+    });
+
+    $('#model').change(() => {
+      console.log ('Changing model text');
+      label.setObjectText('Model', $('#model').val());
+      updatePreview(label);
+    });
 
 
   }
@@ -85,3 +94,4 @@ function _debug_labelNames (label) {
     console.log (name + ": " + label.getObjectText (name));
   });
 }
+

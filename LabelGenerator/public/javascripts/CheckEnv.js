@@ -157,24 +157,24 @@
                 // do it only if we have a full path
                 var fileName = labelFile.value;
                 if ((fileName.indexOf('/') >= 0 || fileName.indexOf('\\') >= 0) &&(fileName.indexOf('fakepath') <0 )) {
-                    label = dymo.label.framework.openLabelFile(fileName); 
-					if(label.isDCDLabel())
-						console.log("DYMO Connect label");
-					if(label.isDLSLabel())
-						console.log("DLS label");	
-					if(label.isValidLabel())
-						console.log("The file is a valid label");
-					else {
-						alert(" The file is not a valid label");
-						return;
-					}
-				}
+                  label = dymo.label.framework.openLabelFile(fileName); 
+                  if(label.isDCDLabel())
+                    console.log("DYMO Connect label");
+                  if(label.isDLSLabel())
+                    console.log("DLS label");	
+                  if(label.isValidLabel())
+                    console.log("The file is a valid label");
+                  else {
+                    alert(" The file is not a valid label");
+                    return;
+                  }
+			        	}
                 else {
-                    // the browser returned a file name only (without path). This heppens on Safari for example
-                    // in this case it is impossible to obtain file content using client-size only code,some server support is needed (see GMail IFrame file upload, ofr example)
-                    // so for this sample we will inform user and open a default address label
-                    alert('The browser does not return full file path information. The sample will use a default label file');
-                    var testAddressLabelXml = '<?xml version="1.0" encoding="utf-8"?>\
+                  // the browser returned a file name only (without path). This heppens on Safari for example
+                  // in this case it is impossible to obtain file content using client-size only code,some server support is needed (see GMail IFrame file upload, ofr example)
+                  // so for this sample we will inform user and open a default address label
+                  alert('The browser does not return full file path information. The sample will use a default label file');
+                  var testAddressLabelXml = '<?xml version="1.0" encoding="utf-8"?>\
     <DieCutLabel Version="8.0" Units="twips">\
         <PaperOrientation>Landscape</PaperOrientation>\
         <Id>Address</Id>\
@@ -216,57 +216,56 @@
             <Bounds X="332" Y="150" Width="4455" Height="1260" />\
         </ObjectInfo>\
     </DieCutLabel>';
-                    label = dymo.label.framework.openLabelXml(testAddressLabelXml);
+          label = dymo.label.framework.openLabelXml(testAddressLabelXml);
 
-                }    
-            }
+        }    
+      }
 
-            // check that label has an address object
-            if (label.getAddressObjectCount() == 0) {
-                alert("Selected label does not have an address object on it. Select another label");
-                return;
-            }
+      // check that label has an address object
+      if (label.getAddressObjectCount() == 0) {
+        alert("Selected label does not have an address object on it. Select another label");
+        return;
+      }
 
-            updatePreview();
-            addressTextArea.value = getAddress();
-            printButton.disabled = false;
-            addressTextArea.disabled = false;
-        };
-
-        // updates address on the label when user types in textarea field
-        addressTextArea.onkeyup = function() {
-            if (!label) {
-                alert('Load label before entering address data');
-                return;
-            }
-
-            setAddress(addressTextArea.value);
-            updatePreview();
-        }
-
-        // prints the label
-        printButton.onclick = function() {
-            try {               
-                if (!label) {
-                    alert("Load label before printing");
-                    return;
-                }
-
-                //alert(printersSelect.value);
-                label.print(printersSelect.value);
-                //label.print("unknown printer");
-            }
-            catch(e)
-            {
-                alert(e.message || e);
-            }
-        }
-
-        printersSelect.onchange = populatePrinterDetail;
-
-        // load printers list on startup
-        loadPrintersAsync();
+      updatePreview();
+      addressTextArea.value = getAddress();
+      printButton.disabled = false;
+      addressTextArea.disabled = false;
     };
+
+    // updates address on the label when user types in textarea field
+    addressTextArea.onkeyup = function() {
+    if (!label) {
+      alert('Load label before entering address data');
+      return;
+    }
+
+    setAddress(addressTextArea.value);
+    updatePreview();
+  }
+
+  // prints the label
+  printButton.onclick = function() {
+  try {               
+    if (!label) {
+      alert("Load label before printing");
+      return;
+    }
+
+    //alert(printersSelect.value);
+    label.print(printersSelect.value);
+    //label.print("unknown printer");
+  }
+  catch(e) {
+    alert(e.message || e);
+  }
+}
+
+printersSelect.onchange = populatePrinterDetail;
+
+// load printers list on startup
+loadPrintersAsync();
+};
 
     function initTests() {
 		if(dymo.label.framework.init) {

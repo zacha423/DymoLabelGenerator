@@ -6,4 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/test', function (req, res, next) {
+  res.render ('2js', {title:'Dymo'});
+});
+
 module.exports = router;

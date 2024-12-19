@@ -1,0 +1,32 @@
+extends layout 
+block chead
+  script(src="javascripts/2text.js")
+
+block content
+  h1= title
+  p Welcome to #{title}
+    .top
+    .left
+      #labelFileSelection
+        label(for="labelFile") Select label file with address object: 
+        input#labelFile(type="file",name="labelFile")
+      #addressDiv
+        label(for="addressTextArea") Current address: 
+        br
+        textarea#addressTextArea(name="addressTextArea", rows='5', cols='40')
+
+    .content
+      #labelImageDiv
+        img#labelImage(src="", alt="label preview")
+    
+      .printControls
+        #printersDiv
+          label(for="printersSelect") Printer: 
+          select#printersSelect
+        #printDiv
+          button#printButton Print
+
+        div
+          label 
+            b Printer Details Information
+            #printerDetail

@@ -41,15 +41,15 @@ block content
 
       .row
         p can this be a drop/down preselect with custom and free text option?
-        .col#cpu 
+        .col 
           label(for="cpu") Processor
-          input(type="text" name="cpu")
-        .col#memory   
+          input#cpu(type="text" name="cpu")
+        .col   
           label(for="memory") Memory
-          input(type="text" name="memory")
-        .col#storage
+          input#memory(type="text" name="memory")
+        .col
           label(for="storage") Storage
-          input(type="text", name="storage")
+          input#storage(type="text", name="storage")
 
 
     #returnField

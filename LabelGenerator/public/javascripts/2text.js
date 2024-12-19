@@ -71,6 +71,49 @@ $(() => {
       updatePreview(label);
     });
 
+    $('#hardwareField').change(() => {
+      console.log("Changing hardware values");
+      label.setObjectText('Hardware', $('#cpu').val() + " / " + $('#memory').val() + " / " + $('#storage').val())
+      updatePreview(label);
+    });
+
+    $('#returnField').change(() => {
+      console.log ("Changing returned items");
+      str = "Retd w/: ";
+
+      if ($('#usbc').prop('checked')) {
+        str += "USB-C Charger, ";
+      }
+
+      if ($('#barrel').prop('checked')) {
+        str += "Barrel/Magsafe Charger, ";
+      }
+
+      if ($('#dongle').prop('checked')) {
+        str += "Hub, ";
+      }
+
+      str += $('#custom').val();
+
+      label.setObjectText('Accessories', str);
+      updatePreview (label);
+    });
+
+    $('#usbc').on('input', () => {
+      if ($('#usbc').prop('checked')) {
+        $('#barrel').prop('checked', false);
+      }
+    });
+
+
+    $('#barrel').on('input', () => {
+      if($('#barrel').prop('checked')) {
+        $('#usbc').prop('checked', false);
+      }
+    });
+
+
+
 
   }
 

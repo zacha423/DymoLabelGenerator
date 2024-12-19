@@ -95,3 +95,24 @@ function _debug_labelNames (label) {
   });
 }
 
+
+
+
+/***
+ * // prints the label
+      printButton.onclick = function() {
+        try {               
+          if (!label) {
+            alert("Load label before printing");
+            return;
+          }
+
+          //alert(printersSelect.value);
+          label.print(printersSelect.value);
+          //label.print("unknown printer");
+        }
+        catch(e) {
+          alert(e.message || e);
+        }
+      }
+ */

@@ -204,25 +204,25 @@
 
       // prints the label
       printButton.onclick = function() {
-      try {               
-        if (!label) {
-          alert("Load label before printing");
-          return;
+        try {               
+          if (!label) {
+            alert("Load label before printing");
+            return;
+          }
+
+          //alert(printersSelect.value);
+          label.print(printersSelect.value);
+          //label.print("unknown printer");
         }
-
-        //alert(printersSelect.value);
-        label.print(printersSelect.value);
-        //label.print("unknown printer");
+        catch(e) {
+          alert(e.message || e);
+        }
       }
-      catch(e) {
-        alert(e.message || e);
-      }
-    }
 
-    printersSelect.onchange = populatePrinterDetail;
+      printersSelect.onchange = populatePrinterDetail;
 
-    // load printers list on startup
-    loadPrintersAsync();
+      // load printers list on startup
+      loadPrintersAsync();
     };
 
     function initTests() {

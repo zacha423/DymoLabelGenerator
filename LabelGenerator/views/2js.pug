@@ -5,59 +5,80 @@ block chead
 block content
   h1= title
   p Welcome to #{title}
-    .values#labelFields
-      #assetField 
+  .values#labelFields
+    .row
+      .col#assetField 
         label(for="asset") Asset Tag
         input#asset(type="text",name="asset")
-      #modelField 
+      //-.col 
+        .row.printControls
+        .col
+          #printersDiv
+            label(for="printersSelect") Printer: 
+            select#printersSelect
+        .col
+          #printDiv
+            button#printButton Print
+    #modelField 
+      //-.row
+        label(for="models") Defaults Models
+        select(name="models")
+          option Custom
+          option Precision 3490
+          option Precision 3590
+      .row
         label(for="model") Device Model
         input#model(type="select",name="model")
-        p data from TDX in CSV?
-      #hardwareField 
+    .row#hardwareField 
+      //-.row
+        p Preeselect a default configuration
+        label(for="defaults") Standard Hardware Configurations
+        select(name="defaults")
+          option
+          option(value="i5/8GB/256GB") i5 / 8GB / 256GB
+          option(value="i7/16GB/512GB") i7 / 16GB / 512GB
+          option(vallue="Ultra7/16GB/256GB") Ultra 7 / 16GB / 256GB
+
+      .row
         p can this be a drop/down preselect with custom and free text option?
-        #cpu 
+        .col#cpu 
           label(for="cpu") Processor
           input(type="text" name="cpu")
-        #memory   
+        .col#memory   
           label(for="memory") Memory
           input(type="text" name="memory")
-        #storage
+        .col#storage
           label(for="storage") Storage
           input(type="text", name="storage")
-      #returnField
-        select(multiple, name="returns")
-          option(value="USB-C") USB-C Charger 
-          option(value="Barrel") Barrel Charger
-          option(value="Hub") Dongle/Hub
-        p checkbox select - USB C / barrel/ hub
 
-        input(type="text" list="acccesories")
-        datalist(id="acccesories")
-          option(value="USB-C") USB-C Charger 
-          option(value="Barrel") Barrel Charger
-          option(value="Hub") Dongle/Hub
 
-    //- .left
-       #labelFileSelection
-        label(for="labelFile") Select label file with address object: 
-        input#labelFile(type="file",name="labelFile")
-      #addressDiv
-        label(for="addressTextArea") Current address: 
-        br
-        textarea#addressTextArea(name="addressTextArea", rows='5', cols='40')
+    #returnField
+      p Returned Accessories
+      ul
+        li
+          label(for="usbc") USB-C Charger
+          input#usbc(type="checkbox" name="usbc")
+          //- if magsafe picked, USB-C shoulld be unsellected?
+        li
+          label(for="barrel") Barrel/Magsafe Charger
+          input#barrel(type="checkbox" name="oldCharger")
+        li
+          label(for="dongle") Dongle / Hub / Dock
+          input#dongle(type="checkbox" name="dongle")
+        li
+          label(for="custom") Additional Item(s)
+          input#custom(type="text" name="custom")
 
-    .content
+  .content
+    .row
       #labelImageDiv
         img#labelImage(src="", alt="label preview")
-    
-      .printControls
+
+    .row.printControls
+      .col
         #printersDiv
           label(for="printersSelect") Printer: 
           select#printersSelect
+      .col
         #printDiv
           button#printButton Print
-
-        div
-          label 
-            b Printer Details Information
-            #printerDetail

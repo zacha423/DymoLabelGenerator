@@ -49,17 +49,10 @@ $(() => {
     }
 
     determineLabelType (label);
-    let names = label.getObjectNames();
-    console.log(names);
-    console.log (label.getObjectText(names[0]));
-    console.log (label.getObjectText(names[1]));
-    console.log (label.getObjectText(names[2]));
-
-    names.forEach ((item) => {
-      console.log (label.getObjectText (item));
-    });
+    // _debug_labelNames (label);
 
     loadPrintersAsync ();
+    updatePreview (label);
   
       
       
@@ -74,3 +67,21 @@ $(() => {
 
   onload();
 });
+
+function updatePreview (label) {
+  if (!label) {
+    return;
+  }  
+
+  const pngData = label.render();
+  const labelImage = $('#labelImage');
+  labelImage.attr('src', "data:image/png;base64," + pngData);
+}
+
+function _debug_labelNames (label) {
+  let names = label.getObjectNames();
+  console.log(names);
+  names.forEach ((name) => {
+    console.log (name + ": " + label.getObjectText (name));
+  });
+}

@@ -125,11 +125,10 @@ $(() => {
     });
 
     $('#nothing').on('input', () => {
-      console.log ($('#nothing').attr('checked'));
       if ($('#nothing').prop('checked')) {
-        $('#usbc').prop('checked', false);
-        $('#barrel').prop('checked', false);
-        $('#dongle').prop('checked', false);
+        $('#usbc,#barrel,#dongle').each(function() {
+          $(this).prop('checked', false);
+        })
         $('#custom').val('');
       }
     });
@@ -147,18 +146,11 @@ $(() => {
     })
 
     $.get('/data/models.csv', ((data) => {
-      console.log(data);
-      const models = [];
       data.split('\n').forEach((row) => {
         model = row.split(',');
         str = model[0] + " (" + model[1] + " Stock)";
         $('#models').append($('<option>', {value: str, text: str}));
-        models.push({model:model[0],year:model[1]});
       });
-
-      console.log(models);
-
-      
     }));
 
     $('#models').on('input', () => {
@@ -167,17 +159,11 @@ $(() => {
     })
 
     $.get('/data/hardware.csv', (data) => {
-      console.log(data);
-      const hardwares = [];
-
       data.split('\n').forEach ((row) => {
         hardware = row.split(',');
         str = "" + hardware[0] + " / " + hardware [1] + " / " + hardware[2];
         $('#default_hardware').append($('<option>', {cpu: hardware[0], memory:hardware[1], storage:hardware[2], text: str}));
-        hardwares.push({cpu:hardware[0], memory:hardware[1], storage:hardware[2]});
       });
-
-      console.log(hardwares);
     });
 
     $('#default_hardware').on('input', () => {
@@ -189,18 +175,9 @@ $(() => {
     });
 
     $('#returnField').trigger('change');
-
-
   }
 
-
-  // if(dymo.label.framework.init) {
-  //   dymo.label.framework.init(onload);
-  // }
-  // else {
-    onload();
-  // }
-  
+  onload();
 });
 
 function updatePreview (label) {

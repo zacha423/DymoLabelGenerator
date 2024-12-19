@@ -1,0 +1,7 @@
+{
+  "git.autorefresh": true,
+  "editor.rulers": [
+    {"color": "#00bd58", "column": 80},
+    {"color": "#8cd100", "column": 100},
+    {"color": "#ff0000", "column": 120}]
+}

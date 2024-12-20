@@ -10,7 +10,6 @@ mixin card(title='', theme='primary')
     .card-footer(class=`bg-${theme}`)
 
 block chead
-  
   link(href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css", rel="stylesheet")
   script(src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js")
 
@@ -18,13 +17,7 @@ block chead
 
 block content
   script(src="javascripts/2text.js")
-  //- #modelField
-    .form-group 
-      label(for="s3t") Model
-      select#s3t.form-control.select2
-        option(selected, disabled) Enter custom model or select an existing model
   h1= title
-  p Welcome to #{title}
   #wrapper.container
     .col
       .row
@@ -44,7 +37,7 @@ block content
                         label(for="s3t") Model
                         select#s3t.form-control
                           option(selected, disabled) Enter custom model or select an existing model
-                    .col
+                    .col.border
                       .row
                         #hardwareField
                           .form-group
@@ -52,7 +45,7 @@ block content
                             select#s2t.form-control
                               option(selected, disabled) Enter custom hardware or select a configuration
                   .row#returnField
-                    .col
+                    .col.border
                       h4 Accessories
                       ul
                         li
@@ -65,15 +58,15 @@ block content
                           input.form-check-input#dongle(type="checkbox" name="dongle")
                           label.form-check-label(for="dongle") Dongle / Hub / Dock
                         li
-                          
-                          label.form-check-label(for="custom") Additional Item(s)
-                          input.form-check-input#custom(type="text" name="custom")
+                          input.form-check-input#customCheck(type="checkbox", name="toggler")
+                          label.form-check-label#customLabel(for="custom") Additional Item(s)
+                          input.d-flex.form-control#custom(type="text" name="custom")
                         li
                           input.form-check-input#nothing(checked type="checkbox" name='nothing')
                           label.form-check-label(for="nothing") No Accessories                          
-                    .col.d-flex.justify-content-center
-                      
-                      img.align-items-center.img-lfuid#labelImage(src="", alt="label preview")
+                    .col.justify-content-center.border.border-danger
+                      .row.d-flex.justify-content-center
+                        img.align-items-center.img-lfuid#labelImage(src="", alt="label preview").border.border-success
 
           
       .row

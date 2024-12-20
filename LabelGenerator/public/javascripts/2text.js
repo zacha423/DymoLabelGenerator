@@ -94,8 +94,10 @@ $(() => {
         str += "No Accessories";
       }
 
-      str += $('#custom').val();
-
+      if ($('#customCheck').prop('checked')) {
+        str += $('#custom').val();
+      }
+      
       label.setObjectText('Accessories', str);
       updatePreview (label);
     });
@@ -112,9 +114,7 @@ $(() => {
       if($('#barrel').prop('checked')) {
         $('#usbc').prop('checked', false);
         $('#nothing').prop('checked', false);
-      }
-
-      
+      }     
     });
 
     $('#printButton').on('click', () => {
@@ -126,7 +126,7 @@ $(() => {
         $('#usbc,#barrel,#dongle').each(function() {
           $(this).prop('checked', false);
         })
-        $('#custom').val('');
+        $('#customCheck').prop('checked', false);
       }
     });
 
@@ -140,7 +140,12 @@ $(() => {
 
     $('#custom').on('input', () => {
       $('#nothing').prop('checked', false);
-    })
+      $('#customCheck').prop('checked',true);
+    });
+
+    $('#customCheck').on('input', () => {
+      $('#nothing').prop('checked',false);
+    });
 
     $.get('/data/models.csv', ((data) => {
       data.split('\n').forEach((row) => {
@@ -167,14 +172,13 @@ $(() => {
 
     $('#s2t').select2({tags:true});  
     $('#s3t').select2({tags:true});  
-    // $('#s2t').trigger('change');
+    
 
   }
 
   onload();
   
-  $('#s2t').select2({tags:true});  
-  $('#s3t').select2({tags:true});  
+
 });
 
 function updatePreview (label) {

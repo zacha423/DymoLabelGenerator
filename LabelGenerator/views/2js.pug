@@ -4,78 +4,70 @@ mixin card(title='', theme='primary')
     .card-header
       h3.card-title= title
     .card-body 
-      .container-flex
-        if block
-          block
+      if block
+        block
     .card-footer(class=`bg-${theme}`)
 
 block chead
   link(href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css", rel="stylesheet")
   script(src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js")
 
-
-
 block content
   script(src="javascripts/2text.js")
-  h1= title
-  #wrapper.container
+  h1.text-center= title
+  .row
     .col
-      .row
-        +card(title)
-          form(style="width:100%")
+      +card('Device Information').w-100
+        .row
+          .values#labelFields
+            h4 Computer Info
+            .col-6
+              .form-group#assetField 
+                label(for="asset") Asset Tag
+                input#asset.form-control(type="text",name="asset")
             .row
-              .row
-                .values#labelFields
-                  h4 Computer Info
-                  .col-6
-                    .form-group#assetField 
-                      label(for="asset") Asset Tag
-                      input#asset.form-control(type="text",name="asset")
-                  .row
-                    .col
-                      .form-group#modelField 
-                        label(for="s3t") Model
-                        select#s3t.form-control
-                          option(selected, disabled) Enter custom model or select an existing model
-                    .col.border
-                      .row
-                        #hardwareField
-                          .form-group
-                            label(for="s2t") Hardware Configuration
-                            select#s2t.form-control
-                              option(selected, disabled) Enter custom hardware or select a configuration
-                  .row#returnField
-                    .col.border
-                      h4 Accessories
-                      ul
-                        li
-                          input.form-check-input#usbc(type="checkbox" name="usbc")
-                          label.form-check-label(for="usbc") USB-C Charger
-                        li
-                          input.form-check-input#barrel(type="checkbox" name="oldCharger")
-                          label.form-check-label(for="barrel") Barrel/Magsafe Charger
-                        li
-                          input.form-check-input#dongle(type="checkbox" name="dongle")
-                          label.form-check-label(for="dongle") Dongle / Hub / Dock
-                        li
-                          input.form-check-input#customCheck(type="checkbox", name="toggler")
-                          label.form-check-label#customLabel(for="custom") Additional Item(s)
-                          input.d-flex.form-control#custom(type="text" name="custom")
-                        li
-                          input.form-check-input#nothing(checked type="checkbox" name='nothing')
-                          label.form-check-label(for="nothing") No Accessories                          
-                    .col.justify-content-center.border.border-danger
-                      .row.d-flex.justify-content-center
-                        img.align-items-center.img-lfuid#labelImage(src="", alt="label preview").border.border-success
+              .col
+                .form-group#modelField 
+                  label(for="s3t") Model
+                  select#s3t.form-control
+                    option(selected, disabled) Enter custom model or select an existing model
+              .col
+                .row
+                  #hardwareField
+                    .form-group
+                      label(for="s2t") Hardware Configuration
+                      select#s2t.form-control
+                        option(selected, disabled) Enter custom hardware or select a configuration
+            .row
+              .col#returnField
+                label(for="nothing") Accessories
+                ul
+                  li
+                    input.form-check-input#usbc(type="checkbox" name="usbc")
+                    label.form-check-label(for="usbc") USB-C Charger
+                  li
+                    input.form-check-input#barrel(type="checkbox" name="oldCharger")
+                    label.form-check-label(for="barrel") Barrel/Magsafe Charger
+                  li
+                    input.form-check-input#dongle(type="checkbox" name="dongle")
+                    label.form-check-label(for="dongle") Dongle / Hub / Dock
+                  li
+                    input.form-check-input#customCheck(type="checkbox", name="toggler")
+                    label.form-check-label#customLabel(for="custom") Additional Item(s)
+                    input.d-flex.form-control#custom(type="text" name="custom")
+                  li
+                    input.form-check-input#nothing(checked type="checkbox" name='nothing')
+                    label.form-check-label(for="nothing") No Accessories                          
+              .col.d-flex.align-items-center.justify-content-center
+                img#labelImage(src="", alt="label preview").border
 
-          
-      .row
-        +card('Print Controls', 'info')
-          .row
-            .col
-              #printersDiv
-                label(for="printersSelect") Printer: 
-                select#printersSelect
-            .col
-              #printDiv
-                button#printButton.d-flex.bg-success Print
+
+  .row
+    .col
+      +card('Print Controls', 'info')
+        #printersDiv
+          .form-group
+            label(for="printersSelect") Printer: 
+            select.form-control#printersSelect
+        #printDiv
+          button.btn.btn-lg#printButton.bg-success.w-100 Print

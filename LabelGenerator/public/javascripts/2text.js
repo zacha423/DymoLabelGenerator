@@ -172,6 +172,7 @@ $(() => {
 
     $('#s2t').select2({tags:true});  
     $('#s3t').select2({tags:true});  
+    $('#printersSelect').select2();
     
 
   }

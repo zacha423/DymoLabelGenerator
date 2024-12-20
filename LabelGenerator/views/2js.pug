@@ -1,6 +1,8 @@
 extends layout 
 block chead
   script(src="javascripts/2text.js")
+  link(href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css", rel="stylesheet")
+  script(src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js")
 
 block content
   h1= title
@@ -21,12 +23,18 @@ block content
         input#model(type="select",name="model")
     .row#hardwareField 
       .row
+        .col
+          .form-group
+            label(for="s2t") Select2 Hardware
+            select#s2t.form-control
+              option(selected, disabled) Enter custom hardware or select a configuration
+      //-.row
         p Preeselect a default configuration
         label(for="default_hardware") Standard Hardware Configurations
         select#default_hardware(name="defaults")
           option Enter custom hardware or select a configuration
 
-      .row
+      //-.row
         p can this be a drop/down preselect with custom and free text option?
         .col 
           label(for="cpu") Processor

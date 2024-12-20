@@ -26,6 +26,8 @@ $(() => {
     });
   }
 
+
+
   function onload() {
     // const labelFile = $('#labelFile');
     // const printerSelect = $('#printersSelect');
@@ -34,7 +36,7 @@ $(() => {
     // Initialize the controls
     printButton.disabled = true;
 
-    
+  
 
     let label = dymo.label.framework.openLabelFile("http://localhost:3000/labels/bumpdown.dymo");
     const res = label.isValidLabel();
@@ -72,7 +74,8 @@ $(() => {
 
     $('#hardwareField').change(() => {
       console.log("Changing hardware values");
-      label.setObjectText('Hardware', $('#cpu').val() + " / " + $('#memory').val() + " / " + $('#storage').val())
+      // label.setObjectText('Hardware', $('#cpu').val() + " / " + $('#memory').val() + " / " + $('#storage').val())
+      label.setObjectText('Hardware', $('#s2t').find(':selected').val());
       updatePreview(label);
     });
 
@@ -163,6 +166,7 @@ $(() => {
         hardware = row.split(',');
         str = "" + hardware[0] + " / " + hardware [1] + " / " + hardware[2];
         $('#default_hardware').append($('<option>', {cpu: hardware[0], memory:hardware[1], storage:hardware[2], text: str}));
+        $('#s2t').append($('<option>', {cpu: hardware[0], memory:hardware[1], storage:hardware[2], text: str}));
       });
     });
 
@@ -175,6 +179,36 @@ $(() => {
     });
 
     $('#returnField').trigger('change');
+
+
+
+    $('#s2t').select2({tags:true, createTag: (tag) => {
+
+      let term = $.trim(tag.term);
+      let terms = term.split(' / ');
+      
+      if (term === '') {
+        return null;
+      }
+
+
+      console.log ({
+        id: term,
+        text: term,
+      //   cpu: terms[0],
+      //   memory: terms[1],
+      //   storage: terms[2]
+      });
+
+      return {
+        id: term,
+        text: term,
+        value: term
+        // cpu: terms[0],
+        // memory: terms[1],
+        // storage: terms[2]
+      };
+    }});    
   }
 
   onload();

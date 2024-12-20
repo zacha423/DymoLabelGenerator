@@ -13,4 +13,8 @@ router.get('/test', function (req, res, next) {
   res.render ('2js', {title:'Bumpdown Label Template'});  
 });
 
+router.get('/voucher', function (req, res, next) {
+  res.render ('voucher', {title:'Voucher Label Template'});
+});
+
 module.exports = router;

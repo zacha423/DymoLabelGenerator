@@ -140,7 +140,7 @@
                 <Text>asset tag</Text>
                 <FontInfo>
                   <FontName>Segoe UI</FontName>
-                  <FontSize>11.2</FontSize>
+                  <FontSize>14.2</FontSize>
                   <IsBold>True</IsBold>
                   <IsItalic>False</IsItalic>
                   <IsUnderline>False</IsUnderline>
@@ -155,12 +155,12 @@
           </FormattedText>
           <ObjectLayout>
             <DYMOPoint>
-              <X>1.75</X>
-              <Y>0.07854868</Y>
+              <X>1.760635</X>
+              <Y>0.06510802</Y>
             </DYMOPoint>
             <Size>
-              <Width>1.605</Width>
-              <Height>0.2093562</Height>
+              <Width>1.605001</Width>
+              <Height>0.2644414</Height>
             </Size>
           </ObjectLayout>
         </TextObject>

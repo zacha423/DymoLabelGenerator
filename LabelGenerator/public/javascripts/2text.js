@@ -29,8 +29,6 @@ $(() => {
 
 
   function onload() {
-    // const labelFile = $('#labelFile');
-    // const printerSelect = $('#printersSelect');
     const printButton = $('#printButton');
 
     // Initialize the controls
@@ -57,8 +55,6 @@ $(() => {
     loadPrintersAsync ();
     updatePreview (label);
 
-
-
     // Add onchange for asset
     $('#asset').change(() => {
       console.log('Changing Asset Tag');
@@ -66,15 +62,13 @@ $(() => {
       updatePreview(label);
     });
 
-    $('#model').change(() => {
-      console.log ('Changing model text');
-      label.setObjectText('Model', $('#model').val());
+    $('#s3t').on('input', () => {
+      label.setObjectText('Model', $('#s3t').val());
       updatePreview(label);
-    });
+    })
 
     $('#hardwareField').change(() => {
       console.log("Changing hardware values");
-      // label.setObjectText('Hardware', $('#cpu').val() + " / " + $('#memory').val() + " / " + $('#storage').val())
       label.setObjectText('Hardware', $('#s2t').find(':selected').val());
       updatePreview(label);
     });
@@ -82,7 +76,7 @@ $(() => {
     
     $('#returnField').change(() => {
       console.log ("Changing returned items");
-      str = "Retd w/: ";
+      str = "Returned: ";
 
       if ($('#usbc').prop('checked')) {
         str += "USB-C Charger, ";
@@ -153,65 +147,34 @@ $(() => {
         model = row.split(',');
         str = model[0] + " (" + model[1] + " Stock)";
         $('#models').append($('<option>', {value: str, text: str}));
+        $('#s3t').append($('<option>', {value: str, text: str}));
       });
     }));
 
-    $('#models').on('input', () => {
-      $('#model').val($('#models').val());
-      $('#model').trigger('change');
-    })
+    
 
     $.get('/data/hardware.csv', (data) => {
       data.split('\n').forEach ((row) => {
         hardware = row.split(',');
         str = "" + hardware[0] + " / " + hardware [1] + " / " + hardware[2];
-        $('#default_hardware').append($('<option>', {cpu: hardware[0], memory:hardware[1], storage:hardware[2], text: str}));
-        $('#s2t').append($('<option>', {cpu: hardware[0], memory:hardware[1], storage:hardware[2], text: str}));
+        $('#s2t').append($('<option>', {text: str}));
       });
-    });
-
-    $('#default_hardware').on('input', () => {
-      selectedOpt = $('#default_hardware').find(':selected');
-
-      $('#cpu').val(selectedOpt.attr('cpu'));
-      $('#memory').val(selectedOpt.attr('memory'));
-      $('#storage').val(selectedOpt.attr('storage'));
     });
 
     $('#returnField').trigger('change');
 
 
 
-    $('#s2t').select2({tags:true, createTag: (tag) => {
+    $('#s2t').select2({tags:true});  
+    $('#s3t').select2({tags:true});  
+    // $('#s2t').trigger('change');
 
-      let term = $.trim(tag.term);
-      let terms = term.split(' / ');
-      
-      if (term === '') {
-        return null;
-      }
-
-
-      console.log ({
-        id: term,
-        text: term,
-      //   cpu: terms[0],
-      //   memory: terms[1],
-      //   storage: terms[2]
-      });
-
-      return {
-        id: term,
-        text: term,
-        value: term
-        // cpu: terms[0],
-        // memory: terms[1],
-        // storage: terms[2]
-      };
-    }});    
   }
 
   onload();
+  
+  $('#s2t').select2({tags:true});  
+  $('#s3t').select2({tags:true});  
 });
 
 function updatePreview (label) {

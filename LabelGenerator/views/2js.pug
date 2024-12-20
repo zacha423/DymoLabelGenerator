@@ -1,81 +1,88 @@
 extends layout 
+mixin card(title='', theme='primary')
+  .card(class=`card-${theme}`)
+    .card-header
+      h3.card-title= title
+    .card-body 
+      .container-flex
+        if block
+          block
+    .card-footer(class=`bg-${theme}`)
+
 block chead
-  script(src="javascripts/2text.js")
+  
   link(href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css", rel="stylesheet")
   script(src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js")
 
+
+
 block content
+  script(src="javascripts/2text.js")
+  //- #modelField
+    .form-group 
+      label(for="s3t") Model
+      select#s3t.form-control.select2
+        option(selected, disabled) Enter custom model or select an existing model
   h1= title
   p Welcome to #{title}
-  .values#labelFields
-    .row
-      .col#assetField 
-        label(for="asset") Asset Tag
-        input#asset(type="text",name="asset")
-    #modelField 
+  #wrapper.container
+    .col
       .row
-        label(for="models") Defaults Models
-        select#models(name="models")
-          option Select an option or enter a custom value
+        +card(title)
+          form(style="width:100%")
+            .row
+              .row
+                .values#labelFields
+                  h4 Computer Info
+                  .col-6
+                    .form-group#assetField 
+                      label(for="asset") Asset Tag
+                      input#asset.form-control(type="text",name="asset")
+                  .row
+                    .col
+                      .form-group#modelField 
+                        label(for="s3t") Model
+                        select#s3t.form-control
+                          option(selected, disabled) Enter custom model or select an existing model
+                    .col
+                      .row
+                        #hardwareField
+                          .form-group
+                            label(for="s2t") Hardware Configuration
+                            select#s2t.form-control
+                              option(selected, disabled) Enter custom hardware or select a configuration
+                  .row#returnField
+                    .col
+                      h4 Accessories
+                      ul
+                        li
+                          input.form-check-input#usbc(type="checkbox" name="usbc")
+                          label.form-check-label(for="usbc") USB-C Charger
+                        li
+                          input.form-check-input#barrel(type="checkbox" name="oldCharger")
+                          label.form-check-label(for="barrel") Barrel/Magsafe Charger
+                        li
+                          input.form-check-input#dongle(type="checkbox" name="dongle")
+                          label.form-check-label(for="dongle") Dongle / Hub / Dock
+                        li
+                          
+                          label.form-check-label(for="custom") Additional Item(s)
+                          input.form-check-input#custom(type="text" name="custom")
+                        li
+                          input.form-check-input#nothing(checked type="checkbox" name='nothing')
+                          label.form-check-label(for="nothing") No Accessories                          
+                    .col.d-flex.justify-content-center
+                      
+                      img.align-items-center.img-lfuid#labelImage(src="", alt="label preview")
 
+          
       .row
-        label(for="model") Device Model
-        input#model(type="select",name="model")
-    .row#hardwareField 
-      .row
-        .col
-          .form-group
-            label(for="s2t") Select2 Hardware
-            select#s2t.form-control
-              option(selected, disabled) Enter custom hardware or select a configuration
-      //-.row
-        p Preeselect a default configuration
-        label(for="default_hardware") Standard Hardware Configurations
-        select#default_hardware(name="defaults")
-          option Enter custom hardware or select a configuration
-
-      //-.row
-        p can this be a drop/down preselect with custom and free text option?
-        .col 
-          label(for="cpu") Processor
-          input#cpu(type="text" name="cpu")
-        .col   
-          label(for="memory") Memory
-          input#memory(type="text" name="memory")
-        .col
-          label(for="storage") Storage
-          input#storage(type="text", name="storage")
-
-
-    #returnField
-      p Returned Accessories
-      ul
-        li
-          label(for="usbc") USB-C Charger
-          input#usbc(type="checkbox" name="usbc")
-        li
-          label(for="barrel") Barrel/Magsafe Charger
-          input#barrel(type="checkbox" name="oldCharger")
-        li
-          label(for="dongle") Dongle / Hub / Dock
-          input#dongle(type="checkbox" name="dongle")
-        li
-          label(for="nothing") No Accessories
-          input#nothing(type="checkbox" name='nothing')
-        li
-          label(for="custom") Additional Item(s)
-          input#custom(type="text" name="custom")
-
-  .content
-    .row
-      #labelImageDiv
-        img#labelImage(src="", alt="label preview")
-
-    .row.printControls
-      .col
-        #printersDiv
-          label(for="printersSelect") Printer: 
-          select#printersSelect
-      .col
-        #printDiv
-          button#printButton Print
+        +card('Print Controls', 'info')
+          .row
+            .col
+              #printersDiv
+                label(for="printersSelect") Printer: 
+                select#printersSelect
+            .col
+              #printDiv
+                button#printButton.d-flex.bg-success Print

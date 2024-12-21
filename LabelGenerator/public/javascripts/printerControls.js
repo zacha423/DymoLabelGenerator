@@ -5,19 +5,18 @@ export function initializeCard () {
 }
 
 // get a list of printers
-export async function loadPrinters () {
-  let _printers = [];
-
+async function loadPrinters () {
   dymo.label.framework.getPrintersAsync().then((printers) => {
     if (printers.length == 0) {
       alert("No DYMO printers are installed.");
       return;
     }
-
-    _printers.forEach((printer) => {
+    printers.forEach((printer) => {
       let option = document.createElement ("option");
+      let printerName = printer["name"];
+      
       option.value = printerName;
-      option.append (document.createTextNode(printer["name"]));
+      option.append (document.createTextNode(printerName));
       $("#printersSelect").append(option);
     });
   }).thenCatch ((e) => {
@@ -25,3 +24,4 @@ export async function loadPrinters () {
     return;
   });
 }
+

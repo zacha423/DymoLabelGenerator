@@ -3,23 +3,21 @@ mixin card(title='', theme='primary')
   .card(class=`card-${theme}`)
     .card-header
       h3.card-title= title
-    .card-body 
+    .card-body.w-100
       if block
         block
     .card-footer(class=`bg-${theme}`)
 
-block chead
-  link(href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css", rel="stylesheet")
-  script(src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js")
+
 
 block content
-  script(src="javascripts/2text.js")
+  script(type="module" src="javascripts/2text.js")
   h1.text-center= title
   .row
     .col
       +card('Device Information').w-100
-        .row
-          .values#labelFields
+        .container
+          .values#labelFormWrapper
             h4 Computer Info
             .col-6
               .form-group#assetField 
@@ -27,17 +25,15 @@ block content
                 input#asset.form-control(type="text",name="asset")
             .row
               .col
-                .form-group#modelField 
-                  label(for="s3t") Model
-                  select#s3t.form-control
-                    option(selected, disabled) Enter custom model or select an existing model
+                  .form-group#modelField
+                    label(for="s3t") Model
+                    select#s3t.form-control
+                      option(selected, disabled) Enter custom model or select an existing model
               .col
-                .row
-                  #hardwareField
-                    .form-group
-                      label(for="s2t") Hardware Configuration
-                      select#s2t.form-control
-                        option(selected, disabled) Enter custom hardware or select a configuration
+                  #hardwareField.form-group
+                    label(for="s2t") Hardware Configuration
+                    select#s2t.form-control
+                      option(selected, disabled) Enter custom hardware or select a configuration
             .row
               .col#returnField
                 label(for="nothing") Accessories

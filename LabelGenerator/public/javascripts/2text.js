@@ -1,106 +1,74 @@
 //***************************************************************************** */
-
-
+import { hello, openLabel, renderLabelToImage } from "./dymoutils.js";
+import { initializeCard as initPrinters} from "./printerControls.js";
 $(() => {
-  function loadPrintersAsync () {
-    console.log ("Loading printers");
-
-    _printers = [];
-    dymo.label.framework.getPrintersAsync().then((printers) => {
-      if (printers.length == 0) {
-        alert("No DYMO printers are installed.");
-        return;
-      }
-
-      _printers = printers;
-      printers.forEach((printer) => {
-        let printerName = printer["name"];
-        let option = document.createElement ("option");
-        option.value = printerName;
-        option.append (document.createTextNode(printerName));
-        $("#printersSelect").append(option);
-      });
-    }).thenCatch ((e) => {
-      alert ("Load printers failed: " + e);
-      return;
-    });
-  }
-
+  hello();
 
 
   function onload() {
-    const printButton = $('#printButton');
-
-    // Initialize the controls
-    printButton.disabled = true;
-
-  
-
-    let label = dymo.label.framework.openLabelFile("http://localhost:3000/labels/bumpdown.dymo");
-    const res = label.isValidLabel();
-    console.log(res);
-
-    function determineLabelType (label) {
-      if (label.isDCDLabel()) {
-        console.log ("Dymo Connect label");
-      }
-      if (label.isDLSLabel()) {
-        console.log ("DLS Label");
-      }
-    }
-
-    determineLabelType (label);
-    // _debug_labelNames (label);
-
-    loadPrintersAsync ();
-    updatePreview (label);
-
-    // Add onchange for asset
-    $('#asset').change(() => {
-      console.log('Changing Asset Tag');
-      label.setObjectText('AssetTag', $('#asset').val());
-      updatePreview(label);
-    });
-
-    $('#s3t').on('input', () => {
-      label.setObjectText('Model', $('#s3t').val());
-      updatePreview(label);
-    })
-
-    $('#hardwareField').change(() => {
-      console.log("Changing hardware values");
-      label.setObjectText('Hardware', $('#s2t').find(':selected').val());
-      updatePreview(label);
-    });
+    initPrinters ();
+    let label;
 
     
-    $('#returnField').change(() => {
-      console.log ("Changing returned items");
-      str = "Returned: ";
+    openLabel("http://localhost:3000/labels/bumpdown.dymo").then((data) => {
+      label = data;
 
-      if ($('#usbc').prop('checked')) {
-        str += "USB-C Charger, ";
-      }
 
-      if ($('#barrel').prop('checked')) {
-        str += "Barrel/Magsafe Charger, ";
-      }
+      // Add onchange for asset
+      $('#asset').change(() => {
+        console.log('Changing Asset Tag');
+        label.setObjectText('AssetTag', $('#asset').val());
+      });
 
-      if ($('#dongle').prop('checked')) {
-        str += "Hub, ";
-      }
+      $('#labelFormWrapper').change(() => {
+        renderLabelToImage(label, $('#labelImage'));
+      });
 
-      if ($('#nothing').prop('checked')) {
-        str += "No Accessories";
-      }
+      $('#s3t').on('input', () => {
+        label.setObjectText('Model', $('#s3t').val());
+      })
 
-      if ($('#customCheck').prop('checked')) {
-        str += $('#custom').val();
-      }
+      $('#hardwareField').change(() => {
+        console.log("Changing hardware values");
+        label.setObjectText('Hardware', $('#s2t').find(':selected').val());
+      });
+
       
-      label.setObjectText('Accessories', str);
-      updatePreview (label);
-    });
+      $('#returnField').change(() => {
+        console.log ("Changing returned items");
+        let str = "Returned: ";
+
+        if ($('#usbc').prop('checked')) {
+          str += "USB-C Charger, ";
+        }
+
+        if ($('#barrel').prop('checked')) {
+          str += "Barrel/Magsafe Charger, ";
+        }
+
+        if ($('#dongle').prop('checked')) {
+          str += "Hub, ";
+        }
+
+        if ($('#nothing').prop('checked')) {
+          str += "No Accessories";
+        }
+
+        if ($('#customCheck').prop('checked')) {
+          str += $('#custom').val();
+        }
+        
+        label.setObjectText('Accessories', str);
+      });
+
+
+
+
+      
+    // _debug_labelNames (label);
+
+
+
 
     $('#usbc').on('input', () => {
       if ($('#usbc').prop('checked')) {
@@ -149,8 +117,8 @@ $(() => {
 
     $.get('/data/models.csv', ((data) => {
       data.split('\n').forEach((row) => {
-        model = row.split(',');
-        str = model[0] + " (" + model[1] + " Stock)";
+        let model = row.split(',');
+        let str = model[0] + " (" + model[1] + " Stock)";
         $('#models').append($('<option>', {value: str, text: str}));
         $('#s3t').append($('<option>', {value: str, text: str}));
       });
@@ -160,19 +128,24 @@ $(() => {
 
     $.get('/data/hardware.csv', (data) => {
       data.split('\n').forEach ((row) => {
-        hardware = row.split(',');
-        str = "" + hardware[0] + " / " + hardware [1] + " / " + hardware[2];
+        let hardware = row.split(',');
+        let str = "" + hardware[0] + " / " + hardware [1] + " / " + hardware[2];
         $('#s2t').append($('<option>', {text: str}));
       });
     });
 
     $('#returnField').trigger('change');
+    $('#labelFormWrapper').trigger('change');
 
 
 
     $('#s2t').select2({tags:true});  
     $('#s3t').select2({tags:true});  
     $('#printersSelect').select2();
+    });
+    
+
+
     
 
   }
@@ -181,16 +154,6 @@ $(() => {
   
 
 });
-
-function updatePreview (label) {
-  if (!label) {
-    return;
-  }  
-
-  const pngData = label.render();
-  const labelImage = $('#labelImage');
-  labelImage.attr('src', "data:image/png;base64," + pngData);
-}
 
 function _debug_labelNames (label) {
   let names = label.getObjectNames();

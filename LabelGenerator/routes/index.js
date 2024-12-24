@@ -8,9 +8,9 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/test', function (req, res, next) {
+router.get('/bumpdown', function (req, res, next) {
   console.log('test');
-  res.render ('2js', {title:'Bumpdown Label Template'});  
+  res.render ('bumpdown', {title:'Bumpdown Label Template'});  
 });
 
 router.get('/voucher', function (req, res, next) {

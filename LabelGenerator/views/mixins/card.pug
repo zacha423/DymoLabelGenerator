@@ -1,0 +1,9 @@
+//- A basic AdminLTE card template
+mixin card(title='', theme='primary')
+  .card(class=`card-${theme}`)
+    .card-header
+      h3.card-title=title
+    .card-body.w-100
+      if block
+        block
+    .card-footer(class=`bg-${theme}`)

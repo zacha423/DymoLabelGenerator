@@ -1,15 +1,9 @@
 //***************************************************************************** */
-import { hello, openLabel, renderLabelToImage } from "./dymoutils.js";
-import { initializeCard as initPrinters} from "./printerControls.js";
+import { openLabel, renderLabelToImage } from "./dymoutils.js";
+
 $(() => {
-  hello();
-
-
   function onload() {
-    initPrinters ();
     let label;
-
-    
     openLabel("http://localhost:3000/labels/bumpdown.dymo").then((data) => {
       label = data;
 

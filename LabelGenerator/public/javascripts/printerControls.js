@@ -1,7 +1,18 @@
 // JS related to printer controls card
 export function configureLabelTriggers (label) {
   $('#printButton').on('click', () => {
-    printLabel (label);
+    // printLabel (label);
+    try {
+      if (!label) {
+        alert ("Label not loaded");
+        return;
+      }
+
+      label.print($('#printersSelect').val());
+    }
+    catch (e) {
+      alert(e.message || e);
+    }
   });
 }
 

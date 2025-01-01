@@ -4,7 +4,7 @@ import { configureLabelTriggers as configurePrintButton} from "./printerControls
 
 openLabel("http://localhost:3000/labels/bumpdown.dymo").then((label) => {
   $(() => {
-    _debug_labelNames (label);
+    label.setObjectText('DeviceLabel','VOUCHER');
     configureDeviceInfo (label);
     configurePrintButton (label); 
   });
@@ -15,7 +15,3 @@ openLabel("http://localhost:3000/labels/bumpdown.dymo").then((label) => {
 //     configurePrintButton (label); 
 //   });
 // });
-
-$(() => {
-  // initPrinters();
-});

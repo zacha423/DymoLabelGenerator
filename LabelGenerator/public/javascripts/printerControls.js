@@ -1,16 +1,17 @@
 // JS related to printer controls card
-export function initializeCard () {
-  $('#printButton').disabled = true;
-  loadPrinters ();
+export function configureLabelTriggers (label) {
+  $('#printButton').on('click', () => {
+    printLabel (label);
+  });
 }
 
 // get a list of printers
-async function loadPrinters () {
-  dymo.label.framework.getPrintersAsync().then((printers) => {
-    if (printers.length == 0) {
-      alert("No DYMO printers are installed.");
-      return;
-    }
+dymo.label.framework.getPrintersAsync().then((printers) => {
+  if (printers.length == 0) {
+    alert("No DYMO printers are installed.");
+    return;
+  }
+  $(() => {
     printers.forEach((printer) => {
       let option = document.createElement ("option");
       let printerName = printer["name"];
@@ -19,9 +20,17 @@ async function loadPrinters () {
       option.append (document.createTextNode(printerName));
       $("#printersSelect").append(option);
     });
-  }).thenCatch ((e) => {
-    alert ("Load printers failed: " + e);
-    return;
   });
-}
+}).thenCatch ((e) => {
+  alert ("Load printers failed: " + e);
+  return;
+});
+
+$(() => {
+  $('#printButton').disabled = true;
+  $('#printersSelect').select2();   
+});
+
+
+
 

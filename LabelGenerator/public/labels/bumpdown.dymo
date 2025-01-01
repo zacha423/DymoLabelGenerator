@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <DesktopLabel Version="1">
-  <DYMOLabel Version="3">
+  <DYMOLabel Version="4">
     <Description>DYMO Label</Description>
     <Orientation>Landscape</Orientation>
     <LabelName>Address30251</LabelName>
@@ -23,11 +23,13 @@
     </BorderColor>
     <BorderThickness>1</BorderThickness>
     <Show_Border>False</Show_Border>
+    <HasFixedLength>False</HasFixedLength>
+    <FixedLengthValue>0</FixedLengthValue>
     <DynamicLayoutManager>
       <RotationBehavior>ClearObjects</RotationBehavior>
       <LabelObjects>
         <TextObject>
-          <Name>BumpdownLabel</Name>
+          <Name>DeviceLabel</Name>
           <Brushes>
             <BackgroundBrush>
               <SolidColorBrush>

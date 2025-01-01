@@ -1,4 +1,5 @@
 mixin deviceInfoCard
+  script(src="/javascripts/deviceInfo.js", type="module")
   .container-fluid
     .values#labelFormWrapper
       h4 Computer Info
@@ -9,13 +10,13 @@ mixin deviceInfoCard
           .row
             .col
               .form-group#modelField
-                label(for="s3t") Model
-                select#s3t.form-control
+                label(for="model") Model
+                select#model.form-control
                 option(selected, disabled) Enter custom model or select an existing model
             .col
               #hardwareField.form-group
-                label(for="s2t") Hardware Configuration
-                select#s2t.form-control
+                label(for="hardware") Hardware Configuration
+                select#hardware.form-control
                   option(selected, disabled) Enter custom hardware or select a configuration
           .row
             .col#returnField

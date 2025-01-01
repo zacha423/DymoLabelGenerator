@@ -13,19 +13,19 @@ block content
         +deviceInfoCard
       +card('Voucher Information').w-100
         .row
-          .col
+          .col#voucherWrapper
             .form-group
               label(for="voucherno") Voucher / Ticket Number
               input#voucherno.form-control(type="text",name="voucherno")
             .form-group
               label(for="department") Department
               //- This could be swapped to a dropdown and CSV/TXT datafile
-              input#departmentole.form-control(type="text",name="department")
+              input#department.form-control(type="text",name="department")
             .form-group
               label(for="role") Staff/Faculty Role
               input#role.form-control(type="text",name="role")
           .col.d-flex.align-items-center.justify-content-center
-            img#labelImage(src="", alt="label preview").border
+            img#voucherLabelImage(src="", alt="label preview").border
       
   .row
     .col

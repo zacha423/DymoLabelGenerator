@@ -12,7 +12,7 @@ mixin deviceInfoCard
               .form-group#modelField
                 label(for="model") Model
                 select#model.form-control
-                option(selected, disabled) Enter custom model or select an existing model
+                  option(selected, disabled) Enter custom model or select an existing model
             .col
               #hardwareField.form-group
                 label(for="hardware") Hardware Configuration
@@ -39,4 +39,4 @@ mixin deviceInfoCard
                     input.form-check-input#nothing(checked type="checkbox" name='nothing')
                     label.form-check-label(for="nothing") No Accessories                          
             .col.d-flex.align-items-center.justify-content-center
-              img#labelImage(src="", alt="label preview").border
+              img#deviceLabelImage(src="", alt="label preview").border

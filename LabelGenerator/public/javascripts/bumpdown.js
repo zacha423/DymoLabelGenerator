@@ -155,13 +155,7 @@ $(() => {
 
 });
 
-function _debug_labelNames (label) {
-  let names = label.getObjectNames();
-  console.log(names);
-  names.forEach ((name) => {
-    console.log (name + ": " + label.getObjectText (name));
-  });
-}
+
 
 function printLabel (label) {
   console.log ('printing!');

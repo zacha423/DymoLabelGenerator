@@ -2,7 +2,7 @@ import { renderLabelToImage } from "./dymoutils.js"
 
 export function configureLabelTriggers(label) {
   $('#labelFormWrapper').change(() => {
-    renderLabelToImage (label, $('#labelImage'));
+    renderLabelToImage (label, $('#deviceLabelImage'));
   })
 
   $('#asset').change(() => {
@@ -43,12 +43,15 @@ export function configureLabelTriggers(label) {
     
     label.setObjectText('Accessories', str);
   });
+
+  $('#returnField').trigger('change');
+  $('#labelFormWrapper').trigger('change');
 }
 
 // Load available default computer models
 $.get('/data/models.csv', ((data) => {
   $(() => {
-    data.split('\n').forEach((row) => {
+    data.split('\r\n').forEach((row) => {
       let model = row.split(',');
       let str = model[0] + " (" + model[1] + " Stock)";
       $('#models').append($('<option>', {value: str, text: str}));
@@ -108,6 +111,3 @@ $.get('/data/hardware.csv', (data) => {
   $('#hardware').select2({tags:true});  
 });
 
-// don't recall why these are here, so commented out for now :)
-// $('#returnField').trigger('change');
-// $('#labelFormWrapper').trigger('change');

@@ -1,0 +1,14 @@
+extends layout
+include mixins/card
+include mixins/printingCard
+
+block content
+  //- sciprt(type="module", src="javascripts/freetext.js")
+  h1.text-center= title
+  .row
+    .col
+      +card('Freetext Label').w-100
+  .row
+    .col
+      +card('Print Controls', 'info')
+        +printingCard

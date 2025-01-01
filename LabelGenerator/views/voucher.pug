@@ -1,14 +1,31 @@
 extends layout
 include mixins/card
 include mixins/printingCard
+include mixins/deviceInfoCard
+
 block content
   script(type="module" src="javascripts/voucher.js")
   h1.text-center= title
 
   .row
     .col
-      +card('Voucher Information').w-100
       +card('Device Information').w-100
+        +deviceInfoCard
+      +card('Voucher Information').w-100
+        .col
+          .form-group
+            label(for="role") Staff/Faculty Role
+            input#role.form-control(type="text",name="role")
+          .form-group
+            label(for="department") Department
+            //- This could be swapped to a dropdown and CSV/TXT datafile
+            input#departmentole.form-control(type="text",name="department")
+          .form-group
+            label(for="voucherno") Voucher / Ticket Number
+            input#voucherno.form-control(type="text",name="voucherno")
+        .col
+          //- another preview
+      
   .row
     .col
       +card('Print Controls', 'info')

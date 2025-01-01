@@ -1,0 +1,41 @@
+mixin deviceInfoCard
+  .container-fluid
+    .values#labelFormWrapper
+      h4 Computer Info
+      .col
+        .form-group#assetField 
+          label(for="asset") Asset Tag
+          input#asset.form-control(type="text",name="asset")
+          .row
+            .col
+              .form-group#modelField
+                label(for="s3t") Model
+                select#s3t.form-control
+                option(selected, disabled) Enter custom model or select an existing model
+            .col
+              #hardwareField.form-group
+                label(for="s2t") Hardware Configuration
+                select#s2t.form-control
+                  option(selected, disabled) Enter custom hardware or select a configuration
+          .row
+            .col#returnField
+              label(for="nothing") Accessories
+                ul
+                  li
+                    input.form-check-input#usbc(type="checkbox" name="usbc")
+                    label.form-check-label(for="usbc") USB-C Charger
+                  li
+                    input.form-check-input#barrel(type="checkbox" name="oldCharger")
+                    label.form-check-label(for="barrel") Barrel/Magsafe Charger
+                  li
+                    input.form-check-input#dongle(type="checkbox" name="dongle")
+                    label.form-check-label(for="dongle") Dongle / Hub / Dock
+                  li
+                    input.form-check-input#customCheck(type="checkbox", name="toggler")
+                    label.form-check-label#customLabel(for="custom") Additional Item(s)
+                    input.d-flex.form-control#custom(type="text" name="custom")
+                  li
+                    input.form-check-input#nothing(checked type="checkbox" name='nothing')
+                    label.form-check-label(for="nothing") No Accessories                          
+            .col.d-flex.align-items-center.justify-content-center
+              img#labelImage(src="", alt="label preview").border

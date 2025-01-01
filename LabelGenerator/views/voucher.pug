@@ -1,11 +1,15 @@
 extends layout
 include mixins/card
-
+include mixins/printingCard
 block content
-  script(type="module" src="javascripts/voucher.js");
+  script(type="module" src="javascripts/voucher.js")
   h1.text-center= title
 
   .row
     .col
+      +card('Voucher Information').w-100
+      +card('Device Information').w-100
   .row
     .col
+      +card('Print Controls', 'info')
+        +printingCard

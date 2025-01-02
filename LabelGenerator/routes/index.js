@@ -17,4 +17,8 @@ router.get('/voucher', function (req, res, next) {
   res.render ('voucher', {title:'Voucher Label Template'});
 });
 
+router.get('/freetext', function(req, res, next) {
+  res.render ('freetext', {title: 'Free Text Label Template'});
+})
+
 module.exports = router;

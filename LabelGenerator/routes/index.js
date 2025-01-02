@@ -19,6 +19,10 @@ router.get('/voucher', function (req, res, next) {
 
 router.get('/freetext', function(req, res, next) {
   res.render ('freetext', {title: 'Free Text Label Template'});
+});
+
+router.get('/assignment', function (req, res, next) {
+  res.render('assignment', {title: 'Device Assignment'});
 })
 
 module.exports = router;

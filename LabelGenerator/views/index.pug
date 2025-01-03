@@ -1,46 +1,32 @@
 extends layout
-
+include mixins/card
+include mixins/printingCard
 
 block content
-  script(src="javascripts/CheckEnv.js")
-  h1= title
-  p Welcome to #{title}
-  h1 DYMO Label Framework JavaScript Library Samples: Preview and Print Label
-  .header
-    #sampleDesctiption
-      span This sample shows how new DYMO Label Connect JavaScript Library can be used to display a label preview as well as loading label from a local file and print it. This sample demonsrates:
-        ul
-          li Using dymo.label.framework.openLabelXml() and openLabelFile() to load label definition for further manipulation
-          li label.getAddressText() and setAddressText() to read and set address information on a Address object
-          li label.render() to generate label preview
-          li dymo.label.framework.getPrinters() to get information about installed DYMO printers
-          li label.print() to print the label
-        ul
-        p Note: the preview does not work in Internet Explorer 6 and Internet Explorer 7.   We encourage to use Google  Chrome.
-        p Some browsers are not able to return the full path to try to open file, in this case, label will be loaded from predetermined XML.
+  script(type="module", src="javascripts/return.js")
+  h1.text-center= title
+  .row
+    .col
+      +card('Returned Information')
+        .row
+          .col#labelFormWrapper
+            .form-group
+              label(for="asset") Asset Tag
+              input#asset.form-control(type="text",name="asset")
+            .form-group
+              label(for="name") Faculty/Staff Name
+              input#name.form-control(type="text",name="name")
+            .form-group 
+              label(for="reason") Return Reason 
+              input#reason.form-control(type="text",name="reason")
+            .form-group 
+              label(for="ticketno") Ticket Number 
+              input#ticketno.form-control(type="text",name="reason")
+          .col.d-flex.align-items-center.justify-content-center 
+            img#labelImage(src="", alt="label preview").border
+  .row
+    .col
+      +card('Print Controls', 'info')
+        +printingCard
 
-  .top
-    .left
-      #labelFileSelection
-        label(for="labelFile") Select label file with address object: 
-        input#labelFile(type="file",name="labelFile")
-      #addressDiv
-        label(for="addressTextArea") Current address: 
-        br
-        textarea#addressTextArea(name="addressTextArea", rows='5', cols='40')
-
-    .content
-      #labelImageDiv
-        img#labelImage(src="", alt="label preview")
-    
-      .printControls
-        #printersDiv
-          label(for="printersSelect") Printer: 
-          select#printersSelect
-        #printDiv
-          button#printButton Print
-
-        div
-          label 
-            b Printer Details Information
-            #printerDetail
+        //- name,AssetTag,returnReason,ticketNumber

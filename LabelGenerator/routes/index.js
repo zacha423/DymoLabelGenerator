@@ -25,4 +25,7 @@ router.get('/assignment', function (req, res, next) {
   res.render('assignment', {title: 'Device Assignment'});
 })
 
+router.get('/new', function(req, res, next) {
+  res.render('newStock', {title: 'New Device'});
+});
 module.exports = router;

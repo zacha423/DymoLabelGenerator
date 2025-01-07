@@ -4,8 +4,12 @@ const fs = require ('node:fs');
 const path = require ('path');
 
 /* GET home page. */
+router.get('/return', function(req, res, next) {
+  res.redirect('/');
+});
+
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Returned Device Label' });
 });
 
 router.get('/bumpdown', function (req, res, next) {

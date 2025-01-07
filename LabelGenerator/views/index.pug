@@ -16,9 +16,17 @@ block content
             .form-group
               label(for="name") Faculty/Staff Name
               input#name.form-control(type="text",name="name")
-            .form-group 
-              label(for="reason") Return Reason 
-              input#reason.form-control(type="text",name="reason")
+            //- .form-group 
+              label(for="reason2") Return Reason 
+              input#reason2.form-control(type="text",name="reason")
+            .form-group
+              label(for="reason") Return Reason
+              select#reason.form-control
+                option(selected, disabled) Enter a custom reason or select one 
+                option(value="Lifecycle") Old Device from Lifecycle Replacement
+                option(value="Bumpdown") Staff/Faculty Departure - Bumpdown Stock
+                option(value="Voucher") Staff/Faculty Departure - Voucher Stock
+                option(value="Repair") Repair
             .form-group 
               label(for="ticketno") Ticket Number 
               input#ticketno.form-control(type="text",name="reason")

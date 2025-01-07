@@ -25,6 +25,9 @@ openLabel("http://localhost:3000/labels/returned.dymo").then((label) => {
       label.setObjectText('ticketNumber', $('#ticketno').val());
     });
 
+    $('#reason').select2({tags:true});
+    
     $('#labelFormWrapper').trigger('change');
+
   });
 });

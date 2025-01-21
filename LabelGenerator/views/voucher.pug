@@ -6,7 +6,9 @@ include mixins/deviceInfoCard
 block content
   script(type="module" src="javascripts/voucher.js")
   h1.text-center= title
-
+  script.
+    //var text = "#{title}"
+    let text2 = '#{label}';
   .row
     .col
       +card('Device Information').w-100

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const fs = require ('node:fs');
 const path = require ('path');
+const labelController = require('../controllers/labelController');
 
 /* GET home page. */
 router.get('/return', function(req, res, next) {
@@ -17,9 +18,10 @@ router.get('/bumpdown', function (req, res, next) {
   res.render ('bumpdown', {title:'Bumpdown Label Template'});  
 });
 
-router.get('/voucher', function (req, res, next) {
-  res.render ('voucher', {title:'Voucher Label Template'});
-});
+// router.get('/voucher', function (req, res, next) {
+//   res.render ('voucher', {title:'Voucher Label Template'});
+// });
+router.get('/voucher', labelController.voucher);
 
 router.get('/assignment', function (req, res, next) {
   res.render('assignment', {title: 'Device Assignment'});

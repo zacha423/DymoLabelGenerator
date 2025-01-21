@@ -1,9 +1,11 @@
 import { _debug_labelNames, openLabel, renderLabelToImage } from "./dymoutils.js";
 import { configureLabelTriggers as configureDeviceInfo} from "./deviceInfo.js";
 import { configureLabelTriggers as configurePrintButton} from "./printerControls.js";
-
+console.log('text2: ' + text2);
 openLabel("http://localhost:3000/labels/bumpdown.dymo").then((label) => {
   $(() => {
+    console.log("label: " + label);
+    console.log (decodeURIComponent(text2));
     label.setObjectText('DeviceLabel','VOUCHER');
     configureDeviceInfo (label);
     configurePrintButton (label); 

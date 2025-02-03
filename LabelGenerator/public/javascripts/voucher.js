@@ -1,18 +1,20 @@
 import { _debug_labelNames, openLabel, renderLabelToImage } from "./dymoutils.js";
 import { configureLabelTriggers as configureDeviceInfo} from "./deviceInfo.js";
 import { configureLabelTriggers as configurePrintButton} from "./printerControls.js";
-console.log('text2: ' + text2);
-openLabel("http://localhost:3000/labels/bumpdown.dymo").then((label) => {
+
+openLabel(deviceCard).then((label) => {
   $(() => {
-    console.log("label: " + label);
-    console.log (decodeURIComponent(text2));
+    console.log("Validity: " + label.isValidLabel());
+    console.log("broken label?");
+    _debug_labelNames (label);
     label.setObjectText('DeviceLabel','VOUCHER');
     configureDeviceInfo (label);
     configurePrintButton (label); 
   });
 });
 
-openLabel("http://localhost:3000/labels/voucher_info.dymo").then((label) => {
+    
+openLabel(text2).then((label) => {
   $(() => {
     _debug_labelNames (label);
     configurePrintButton (label); 

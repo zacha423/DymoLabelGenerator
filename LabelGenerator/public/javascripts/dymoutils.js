@@ -1,7 +1,8 @@
 export async function openLabel (path) {
   let label;
   try {
-    label = await dymo.label.framework.openLabelFile(path);
+    
+    label = await dymo.label.framework.openLabelXml(path);
 
     if (!label.isValidLabel()) {
       console.error ("Invalid label!");

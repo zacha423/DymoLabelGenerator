@@ -1,38 +1,15 @@
-const fs = require('node:fs').promises;
+const fs = require('node:fs');
 
-async function readLabel (name) {
-  try {
-    console.log('read call');
-    const data = await fs.readFile (__dirname + '/../public/labels/' + name, 'utf-8');
-    console.log('fin call');
-    return data;
-  }
-  catch (err) {
-    console.log('Error reading label: '+ name + ', ' + err);
-  }
-}
+const LABEL_DIR = __dirname + '/../public/labels/';
+const ENCODING = 'utf-8';
 
-let voucherlbl;
+const voucherlbl = fs.readFileSync (LABEL_DIR + 'voucher_info.dymo', ENCODING);
+const returnlbl = fs.readFileSync (LABEL_DIR + 'returned.dymo', ENCODING);
+const assignmentlbl = fs.readFileSync (LABEL_DIR + 'assignment.dymo', ENCODING);
+const bumpdownlbl = fs.readFileSync (LABEL_DIR + 'bumpdown.dymo', ENCODING);
 
-(async () => {
-  try {
-    voucherlbl = await readLabel ('voucher_info.dymo');
-    console.log ('loaded voucher');
-    console.log(voucherlbl);
-  }
-  catch (err) {
-    console.log ('failed to load voucher' + err);
-  }
-    
-})();
-// const voucherlbl =  (async () => {
-  // await readLabel('voucher_info.dymo');
-// });
-// console.log(readLabel('voucher_info.dymo'));.
-console.log(voucherlbl);
 
 exports.voucher  = (req, res, next) => {
-  // const lbl = await (fs.readFile ('./public/labels/voucher.dymo', 'utf-8'));
-  
-  res.render('voucher', {title: 'Voucher Label Template', label: voucherlbl});
+  res.render('voucher', {title: 'Voucher Label Template', label: voucherlbl, deviceCard: bumpdownlbl});
 }
+

@@ -16,10 +16,18 @@ export function voucher(req, res, next) {
 
 //export the following to a "printer" controller
 import fetch from 'node-fetch';
+import {parseString} from 'xml2js';
+
 async function loadPrinters () {
-  const rawPrinter = await fetch('https://127.0.0.1:41951/DYMO/DLS/Printing/GetPrinters');
-  const resu = await rawPrinter.text();
-  console.log (resu);
+  const rawPrinter = await fetch('https://host.docker.internal:41951/DYMO/DLS/Printing/GetPrinters');
+  let resu = await rawPrinter.text();
+
+  parseString (resu, (err, res) => {
+    resu = res;
+  })
+
+  // get array of printer names
+  console.log(resu['Printers']['LabelWriterPrinter'].flatMap((data => data.Name)));
 }
 
 loadPrinters();

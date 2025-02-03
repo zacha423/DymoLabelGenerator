@@ -51,6 +51,7 @@ router.post('/print', function (req, res, next) {
 
   //curl data from http://127.0.0.1:41951/DYMO/DLS/Printing/GetPrinters
   // e.g. $.get('https://127.0.0.1:41951/DYMO/DLS/Printing/GetPrinters', function(data) {console.log(data);})
+  // https://host.docker.internal:41951/DYMO/DLS/Printing/GetPrinters
 });
 module.exports = router;
 

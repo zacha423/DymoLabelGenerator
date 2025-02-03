@@ -30,4 +30,10 @@ router.get('/assignment', function (req, res, next) {
 router.get('/new', function(req, res, next) {
   res.render('newStock', {title: 'New Device'});
 });
+
+router.post('/print', function (req, res, next) { 
+  // receive req with albel to print, and printer name
+  // print label
+  // redirect history.back()
+});
 module.exports = router;

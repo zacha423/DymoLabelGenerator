@@ -13,3 +13,13 @@ export function voucher(req, res, next) {
   res.render('voucher', {title: 'Voucher Label Template', label: voucherlbl, deviceCard: bumpdownlbl});
 }
 
+
+//export the following to a "printer" controller
+import fetch from 'node-fetch';
+async function loadPrinters () {
+  const rawPrinter = await fetch('https://127.0.0.1:41951/DYMO/DLS/Printing/GetPrinters');
+  const resu = await result.text();
+  console.log (resu);
+}
+
+loadPrinters();

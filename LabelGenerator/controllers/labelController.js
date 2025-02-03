@@ -18,7 +18,7 @@ export function voucher(req, res, next) {
 import fetch from 'node-fetch';
 async function loadPrinters () {
   const rawPrinter = await fetch('https://127.0.0.1:41951/DYMO/DLS/Printing/GetPrinters');
-  const resu = await result.text();
+  const resu = await rawPrinter.text();
   console.log (resu);
 }
 

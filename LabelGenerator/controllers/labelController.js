@@ -1,15 +1,15 @@
-const fs = require('node:fs');
+import { readFileSync } from 'node:fs';
 
-const LABEL_DIR = __dirname + '/../public/labels/';
+const LABEL_DIR = import.meta.dirname + '/../public/labels/';
 const ENCODING = 'utf-8';
 
-const voucherlbl = fs.readFileSync (LABEL_DIR + 'voucher_info.dymo', ENCODING);
-const returnlbl = fs.readFileSync (LABEL_DIR + 'returned.dymo', ENCODING);
-const assignmentlbl = fs.readFileSync (LABEL_DIR + 'assignment.dymo', ENCODING);
-const bumpdownlbl = fs.readFileSync (LABEL_DIR + 'bumpdown.dymo', ENCODING);
+const voucherlbl = readFileSync (LABEL_DIR + 'voucher_info.dymo', ENCODING);
+const returnlbl = readFileSync (LABEL_DIR + 'returned.dymo', ENCODING);
+const assignmentlbl = readFileSync (LABEL_DIR + 'assignment.dymo', ENCODING);
+const bumpdownlbl = readFileSync (LABEL_DIR + 'bumpdown.dymo', ENCODING);
 
 
-exports.voucher  = (req, res, next) => {
+export function voucher(req, res, next) {
   res.render('voucher', {title: 'Voucher Label Template', label: voucherlbl, deviceCard: bumpdownlbl});
 }
 

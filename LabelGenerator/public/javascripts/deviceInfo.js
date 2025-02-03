@@ -51,7 +51,7 @@ export function configureLabelTriggers(label) {
 // Load available default computer models
 $.get('/data/models.csv', ((data) => {
   $(() => {
-    data.split('\r\n').forEach((row) => {
+    data.split('\n').forEach((row) => {
       let model = row.split(',');
       let str = model[0] + " (" + model[1] + " Stock)";
       $('#models').append($('<option>', {value: str, text: str}));
@@ -73,13 +73,19 @@ $.get('/data/hardware.csv', (data) => {
 
 
 // Configure behavior of accessory select options
-  $(() => {
+$(() => {
     // User should have either USB-C or Barrel/Magsafe Charger
   $('#barrel').on('input', () => {
     if($('#barrel').prop('checked')) {
       $('#usbc').prop('checked', false);
       $('#nothing').prop('checked', false);
     }     
+  });
+  $('#usbc').on('input', () => {
+    if($('#usbc').prop('checked')) {
+      $('#barrel').prop('checked',false);
+      $('#nothing').prop('checked', false);
+    }
   });
 
   $('#nothing').on('input', () => {

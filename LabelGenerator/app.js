@@ -8,12 +8,6 @@ const indexRouter = require('./routes/index');
 
 const app = express();
 
-const fs = require('node:fs');
-
-// test file read
-// let lbl = fs.readFileSync('./public/labels/assignment.dymo', 'utf-8');
-// console.log(lbl);
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');

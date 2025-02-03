@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const fs = require ('node:fs');
-const path = require ('path');
 const labelController = require('../controllers/labelController');
 
 /* GET home page. */
@@ -14,7 +12,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/bumpdown', function (req, res, next) {
-  console.log('test');
   res.render ('bumpdown', {title:'Bumpdown Label Template'});  
 });
 
@@ -32,8 +29,16 @@ router.get('/new', function(req, res, next) {
 });
 
 router.post('/print', function (req, res, next) { 
-  // receive req with albel to print, and printer name
-  // print label
-  // redirect history.back()
+  // from e.g. /voucher
+  // label converted back to xml (label.getLabelXml())
+  // xml and printer name sent to /print
+    // printer names needed to be loaded in backend or add /printers to return current printers
+  // /print converts xml back to label
+  // /print calls print() function
+  // /print redirects back to previous page with history.back() or a similar method
+  
+
+  //curl data from http://127.0.0.1:41951/DYMO/DLS/Printing/GetPrinters
+  
 });
 module.exports = router;

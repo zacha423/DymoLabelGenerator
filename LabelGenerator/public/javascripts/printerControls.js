@@ -8,11 +8,21 @@ export function configureLabelTriggers (label) {
         return;
       }
 
-      label.print($('#printersSelect').val());
+      // label.print($('#printersSelect').val());
     }
     catch (e) {
       alert(e.message || e);
     }
+  });
+
+
+  // add on click for new print method
+  $('#printButton').on('click', () => {
+    let xml = label.getLabelXml();
+    
+    $.post('/print', {label: xml, printer: $('#printersSelect').val()}, (datazz) => {
+      alert (datazz);
+    });
   });
 }
 

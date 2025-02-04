@@ -40,12 +40,20 @@ router.get('/assignment', function (req, res, next) {
 router.get('/new', function(req, res, next) {
   res.render('newStock', {title: 'New Device'});
 });
+
+const Dymo = require('dymojs');
+let dymo = new Dymo({hostname: "host.docker.internal"});
 router.post('/print', function (req, res, next) { 
+  console.log(req.body.printer); // or req.body.label
+  dymo.print(req.body.printer, req.body.label);
+	// res.send ('ermagerd it worked');
+  // res.render('print', {label: req.body.label, printer:req.body.printer});
+  res.send ('printed');
   // from e.g. /voucher
   // label converted back to xml (label.getLabelXml())
   // xml and printer name sent to /print
     // printer names needed to be loaded in backend or add /printers to return current printers
-  // /print converts xml back to label
+  // /print converts xml back to label <--
   // /print calls print() function
   // /print redirects back to previous page with history.back() or a similar method
   
@@ -55,28 +63,3 @@ router.post('/print', function (req, res, next) {
   // https://host.docker.internal:41951/DYMO/DLS/Printing/GetPrinters
 });
 module.exports = router;
-
-
-{/* <Printers>
-	<TapePrinter>
-		<Name>DYMO LabelWriter 450 DUO Tape</Name>
-		<ModelName>DYMO LabelWriter 450 DUO Tape</ModelName>
-		<IsConnected>False</IsConnected>
-		<IsLocal>True</IsLocal>
-		<IsAutoCutSupported>True</IsAutoCutSupported>
-	</TapePrinter>
-	<LabelWriterPrinter>
-		<Name>DYMO LabelWriter 450 DUO Label</Name>
-		<ModelName>DYMO LabelWriter 450 DUO Label</ModelName>
-		<IsConnected>False</IsConnected>
-		<IsLocal>True</IsLocal>
-		<IsTwinTurbo>False</IsTwinTurbo>
-	</LabelWriterPrinter>
-	<LabelWriterPrinter>
-		<Name>fakeDYMO LabelWriter 450 Turbo</Name>
-		<ModelName>DYMO LabelWriter 450 Turbo</ModelName>
-		<IsConnected>True</IsConnected>
-		<IsLocal>True</IsLocal>
-		<IsTwinTurbo>False</IsTwinTurbo>
-	</LabelWriterPrinter>
-</Printers> */}

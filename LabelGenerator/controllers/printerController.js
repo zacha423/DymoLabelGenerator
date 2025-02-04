@@ -16,9 +16,9 @@ async function loadPrinters () {
 
 let printe2rs;
 loadPrinters().then(data => {printe2rs = data});
-console.log("THe printers are: " + printe2rs);
+
+
 export function printers(req, res, next) {
   console.log('test');
   res.send (printe2rs);
 }
-console.log(loadPrinters());

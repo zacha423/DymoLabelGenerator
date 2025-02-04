@@ -6,7 +6,9 @@
 const express = require('express');
 const router = express.Router();
 const labelController = require('../controllers/labelController');
-
+// import {printers} from '../controllers/printerController.js';
+const printerController = require ('../controllers/printerController');
+router.get('/printers', printerController.printers);
 // router.get('/printers', asyncHandler(async (req, res) => {
 //   const result = 
 //   
@@ -38,7 +40,6 @@ router.get('/assignment', function (req, res, next) {
 router.get('/new', function(req, res, next) {
   res.render('newStock', {title: 'New Device'});
 });
-
 router.post('/print', function (req, res, next) { 
   // from e.g. /voucher
   // label converted back to xml (label.getLabelXml())

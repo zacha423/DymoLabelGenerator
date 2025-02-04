@@ -21,7 +21,7 @@ export function configureLabelTriggers (label) {
     let xml = label.getLabelXml();
     
     $.post('/print', {label: xml, printer: $('#printersSelect').val()}, (datazz) => {
-      alert (datazz);
+      // alert (datazz);
     });
   });
 }

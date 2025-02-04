@@ -44,11 +44,11 @@ router.get('/new', function(req, res, next) {
 const Dymo = require('dymojs');
 let dymo = new Dymo({hostname: "host.docker.internal"});
 router.post('/print', function (req, res, next) { 
-  console.log(req.body.printer); // or req.body.label
+  // console.log(req.body.printer); // or req.body.label
   dymo.print(req.body.printer, req.body.label);
 	// res.send ('ermagerd it worked');
   // res.render('print', {label: req.body.label, printer:req.body.printer});
-  res.send ('printed');
+  res.status(200).send ();
   // from e.g. /voucher
   // label converted back to xml (label.getLabelXml())
   // xml and printer name sent to /print

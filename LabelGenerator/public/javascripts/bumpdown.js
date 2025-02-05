@@ -4,7 +4,7 @@ import { openLabel, renderLabelToImage } from "./dymoutils.js";
 $(() => {
   function onload() {
     let label;
-    openLabel("http://localhost:3000/labels/bumpdown.dymo").then((data) => {
+    openLabel(bumpdownLabel).then((data) => {
       label = data;
 
 
@@ -23,13 +23,11 @@ $(() => {
       })
 
       $('#hardwareField').change(() => {
-        console.log("Changing hardware values");
         label.setObjectText('Hardware', $('#s2t').find(':selected').val());
       });
 
       
       $('#returnField').change(() => {
-        console.log ("Changing returned items");
         let str = "Returned: ";
 
         if ($('#usbc').prop('checked')) {
@@ -94,8 +92,6 @@ $(() => {
 
     $('#dongle').on('input', () => {
       if ($('#dongle').prop('checked')) {
-        console.log ($(self));
-        console.log('testttt');
         $('#nothing').prop('checked', false);
       }
     });

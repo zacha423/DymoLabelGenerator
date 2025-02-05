@@ -4,22 +4,14 @@ const labelController = require('../controllers/labelController');
 const printerController = require ('../controllers/printerController');
 router.get('/printers', printerController.printers);
 
-/* GET home page. */
-router.get('/return', function(req, res, next) {
-  res.redirect('/');
-});
-
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Returned Device Label' });
-});
-
-router.get('/bumpdown', function (req, res, next) {
-  res.render ('bumpdown', {title:'Bumpdown Label Template'});  
-});
-
-// router.get('/voucher', function (req, res, next) {
-//   res.render ('voucher', {title:'Voucher Label Template'});
+router.get('/', labelController.returns);
+router.get('/return', labelController.returns);
+ 
+// router.get('/bumpdown', function (req, res, next) {
+//   res.render ('bumpdown', {title:'Bumpdown Label Template'});  
 // });
+router.get('/bumpdown', labelController.bumpdown);
+
 router.get('/voucher', labelController.voucher);
 
 router.get('/assignment', function (req, res, next) {

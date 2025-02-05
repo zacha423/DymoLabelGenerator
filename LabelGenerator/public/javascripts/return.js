@@ -1,7 +1,7 @@
 import { openLabel, renderLabelToImage } from "./dymoutils.js";
 import { configureLabelTriggers } from "./printerControls.js";
 
-openLabel("http://localhost:3000/labels/returned.dymo").then((label) => {
+openLabel(returnLabel).then((label) => {
   $(() => {
     configureLabelTriggers(label);
 

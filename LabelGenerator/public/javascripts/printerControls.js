@@ -1,19 +1,21 @@
-// JS related to printer controls card
 export function configureLabelTriggers (label) {
-  $('#printButton').on('click', () => {
-    let xml = label.getLabelXml();
-    console.log("I've printed a label!");
+  $('#printButton').on('click', (event) => {
+    const TIMEOUT = 4500;
+    const xml = label.getLabelXml();
     event.stopImmediatePropagation();
-    // Trigger a secondary label, if any.
-    setTimeout (() => {console.log("I've slept!");$('#printButton').trigger('delayClick');}, 4500)
+    
+    // Trigger secondary label if any
+    // Must be delayed or Dymo Connect Service will crash / fail to print the 2nd label
+    setTimeout (() => {
+      $('#printButton').trigger('delayClick');
+    }, TIMEOUT);
     $.post('/print', {label: xml, printer: $('#printersSelect').val()});
   });
 }
 
 export function configureSecondaryLabelTriggers (label) {
   $('#printButton').on('delayClick', () => {
-    let xml = label.getLabelXml ();
-    console.log ("I've also printed a label.");
+    const xml = label.getLabelXml ();
     $.post('/print', {label: xml, printer: $('#printersSelect').val()});
   });
 }

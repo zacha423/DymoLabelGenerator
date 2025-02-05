@@ -18,7 +18,6 @@ export function configureLabelTriggers(label) {
   });
 
   $('#returnField').change(() => {
-    console.log ("Changing returned items");
     let str = "Returned: ";
   
     if ($('#usbc').prop('checked')) {
@@ -54,7 +53,6 @@ $.get('/data/models.csv', ((data) => {
     data.split('\n').forEach((row) => {
       let model = row.split(',');
       let str = model[0] + " (" + model[1] + " Stock)";
-      $('#models').append($('<option>', {value: str, text: str}));
       $('#model').append($('<option>', {value: str, text: str}));
     });
   });
@@ -88,6 +86,7 @@ $(() => {
     }
   });
 
+  // Clear all selections
   $('#nothing').on('input', () => {
     if ($('#nothing').prop('checked')) {
       $('#usbc,#barrel,#dongle').each(function() {

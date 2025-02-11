@@ -6,7 +6,8 @@ include mixins/deviceInfoCard
 block content 
   script(type="module", src="javascripts/newStock.js")
   h1.text-center= title
-
+  script.
+    let newLabel = '!{label}';
   .row
     .col
       +card('Device Information').w-100

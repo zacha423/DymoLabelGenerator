@@ -1,7 +1,7 @@
 import { openLabel, renderLabelToImage } from "./dymoutils.js";
 import { configureLabelTriggers } from "./printerControls.js";
 
-openLabel("http://localhost:3000/labels/assignment.dymo").then((label) => {
+openLabel(assignmentLabel).then((label) => {
   $(() => {
     configureLabelTriggers (label);
 
@@ -28,5 +28,3 @@ openLabel("http://localhost:3000/labels/assignment.dymo").then((label) => {
     $('#labelFormWrapper').trigger('change');
   })
 });
-
-//- User,AssetTag,Department,TicketNumber

@@ -6,21 +6,10 @@ router.get('/printers', printerController.printers);
 
 router.get('/', labelController.returns);
 router.get('/return', labelController.returns);
- 
-// router.get('/bumpdown', function (req, res, next) {
-//   res.render ('bumpdown', {title:'Bumpdown Label Template'});  
-// });
 router.get('/bumpdown', labelController.bumpdown);
-
 router.get('/voucher', labelController.voucher);
-
-router.get('/assignment', function (req, res, next) {
-  res.render('assignment', {title: 'Device Assignment'});
-})
-
-router.get('/new', function(req, res, next) {
-  res.render('newStock', {title: 'New Device'});
-});
+router.get('/assignment', labelController.assignment);
+router.get('/new', labelController.newStock);
 
 const Dymo = require('dymojs');
 let dymo = new Dymo({hostname: "host.docker.internal"});

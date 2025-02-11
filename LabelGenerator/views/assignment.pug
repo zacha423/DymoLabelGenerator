@@ -5,6 +5,8 @@ include mixins/printingCard
 block content
   script(type="module", src="javascripts/assignment.js")
   h1.text-center= title
+  script.
+    let assignmentLabel = '!{label}';
   .row
     .col 
       +card('Staff/Faculty Assignment').w-100
